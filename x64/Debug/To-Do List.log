@@ -1,0 +1,7 @@
+﻿  To-Do List.cpp
+C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(29,38): error C4996: 'asctime': This function or variable may be unsafe. Consider using asctime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file 'To-Do%20List.cpp')
+  
+C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(30,36): error C4996: 'asctime': This function or variable may be unsafe. Consider using asctime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file 'To-Do%20List.cpp')
+  
