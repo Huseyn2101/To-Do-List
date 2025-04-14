@@ -1,92 +1,106 @@
 #pragma once
 
 
+#define ENTER_KEY 13
 
 #pragma warning(disable : 4996)
 
 #pragma region Enum
 
-enum Priority {
-	LOW,
-	MEDIUM,
-	HIGH,
-	CRITICAL,
-	URGENT
-};
+struct DateTime {
+	int year;
+	int month;
+	int day;
+	int hour;
+	int minute;
+	int second;
 
-string toLowerCase(string& text) {
-	for (size_t i = 0; i < text.length(); ++i) {
-		text[i] = tolower(text[i]);
+	DateTime()
+	{
+		year = 1900;
+		month = 1;
+		day = 1;
+		hour = 0;
+		minute = 0;
+		second = 0;
 	}
-	return text;
-}
 
-#pragma endregion
+	DateTime(int y, int m, int d, int h, int min, int s) : year(y), month(m), day(d), hour(h), minute(min), second(s) {}
 
-#pragma region Task
+	DateTime(const tm& tm) : year(tm.tm_year), month(tm.tm_mon), day(tm.tm_mday), hour(tm.tm_hour), minute(tm.tm_min), second(tm.tm_sec) {}
 
-class Task {
-private:
-	string _name;
-	string _description;
-	Priority _priority;
-	tm _startdatetime;
-	tm _enddatetime;
 
-	string getPriorityString(Priority priority) const {
-		switch (priority) {
-		case LOW: return "Low";
-		case MEDIUM: return "Medium";
-		case HIGH: return "High";
-		case CRITICAL: return "Critical";
-		case URGENT: return "Urgent";
-		default: return "Unknown";
+
+	DateTime(const DateTime& other) {
+		year = other.year;
+		month = other.month;
+		day = other.day;
+		hour = other.hour;
+		minute = other.minute;
+		second = other.second;
+	}
+
+	DateTime(DateTime&& other) noexcept {
+		year = other.year;
+		month = other.month;
+		day = other.day;
+		hour = other.hour;
+		minute = other.minute;
+		second = other.second;
+		other.year = 0;
+		other.month = 0;
+		other.day = 0;
+		other.hour = 0;
+		other.minute = 0;
+		other.second = 0;
+	}
+
+	DateTime& operator=(const DateTime& other) {
+		if (this != &other) {
+			year = other.year;
+			month = other.month;
+			day = other.day;
+			hour = other.hour;
+			minute = other.minute;
+			second = other.second;
 		}
+		return *this;
 	}
 
-public:
-	Task() :_priority(LOW), _startdatetime({ 0 }), _enddatetime({ 0 }) {}
-
-	Task(const string& name, const string& description, Priority priority_level, const tm& startdatetime, const tm& enddatetime) :
-		_name(name), _description(description), _priority(priority_level), _startdatetime(startdatetime), _enddatetime(enddatetime) {
+	DateTime& operator=(DateTime&& other) noexcept {
+		if (this != &other) {
+			year = other.year;
+			month = other.month;
+			day = other.day;
+			hour = other.hour;
+			minute = other.minute;
+			second = other.second;
+			other.year = 0;
+			other.month = 0;
+			other.day = 0;
+			other.hour = 0;
+			other.minute = 0;
+			other.second = 0;
+		}
+		return *this;
 	}
 
-	void display() const {
-		cout << "\v~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-		cout << "Task Details:" << endl;
-		cout << "Task Name: " << _name << endl;
-		cout << "Description: " << _description << endl;
-		cout << "Priority: " << _priority << endl;
-		cout << "Start Date and Time: " << asctime(&_startdatetime);
-		cout << "End Date and Time: " << asctime(&_enddatetime);
-		cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+	bool operator<(const DateTime& other) const {
+		if (year != other.year) return year < other.year;
+		if (month != other.month) return month < other.month;
+		if (day != other.day) return day < other.day;
+		if (hour != other.hour) return hour < other.hour;
+		if (minute != other.minute) return minute < other.minute;
+		return second < other.second;
 	}
 
-	void setName(const string& name) { _name = name; }
-	void setDescription(const string& description) { _description = description; }
-	void setPriority(Priority priority) { _priority = priority; }
-	void setStartDateTime(const tm& startdatetime) { _startdatetime = startdatetime; }
-	void setEndDateTime(const tm& enddatetime) { _enddatetime = enddatetime; }
-	string getName() const { return _name; }
-	string getDescription() const { return _description; }
-	Priority getPriority() const { return _priority; }
-	tm getStartDateTime() const { return _startdatetime; }
-	tm getEndDateTime() const { return _enddatetime; }
-};
+	bool operator>(const DateTime& other) const {
+		return other < *this;
+	}
 
-#pragma endregion
-
-
-#pragma region ToDoList
-
-class ToDoList {
-private:
-	static const int MAX_TASKS = 100;
-	Task _tasks[MAX_TASKS];
-	int _taskCount;
-
-	bool isleapyear(int year) const {
-		return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+	bool operator==(const DateTime& other) const {
+		return year == other.year && month == other.month && day == other.day &&
+			hour == other.hour && minute == other.minute && second == other.second;
 	}
 
 	int getdaysinmonth(int year, int month) const {
@@ -99,401 +113,259 @@ private:
 		return 31;
 	}
 
-	tm getDateTime(const string& type) const {
-		tm dateTime = {};
-		int year, month, date;
-
-		while (true)
-		{
-			cout << "Enter" << type << "year: ";
-			cin >> year;
-			if (cin.fail() || year < 1900 || year > 2100) {
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cerr << "Invalid year. Please enter a year between 1900 and 2100." << endl;
-				continue;
-			}
-			dateTime.tm_year = year;
-			break;
-		}
-		while (true)
-		{
-			cout << "Enter" << type << " month: ";
-			cin >> month;
-			if (cin.fail() || month < 1 || month > 12) {
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cerr << "Invalid month. Please enter a month between 1 and 12." << endl;
-				continue;
-			}
-			dateTime.tm_mon = month;
-			break;
-		}
-		while (true)
-		{
-			int max_days = getdaysinmonth(year, month);
-			cout << "Enter" << type << " day (1 - " << max_days << "): ";
-			cin >> date;
-			if (cin.fail() || date < 0 || date > max_days)
-			{
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cerr << "Invalid day. Please enter day between 1 and " << max_days << "." << endl;
-				continue;
-			}
-			break;
-		}
-		dateTime.tm_mday = date;
-
-		while (true)
-		{
-			cout << "Enter" << type << " the hour: ";
-			cin >> dateTime.tm_hour;
-			if (cin.fail() || dateTime.tm_hour < 0 || dateTime.tm_hour > 23)
-			{
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cerr << "Invalid hour. Please enter a hour between 0 and 59." << endl;
-				continue;
-			}
-			break;
-		}
-
-		while (true) {
-			cout << "Enter" << type << " minute: ";
-			cin >> dateTime.tm_min;
-			if (cin.fail() || dateTime.tm_min < 0 || dateTime.tm_min > 59) {
-				cin.clear();
-				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-				cerr << "invalid minute. please enter a minute between 0 and 59.\n";
-				continue;
-			}
-			break;
-		}
-
-		while (true) {
-			cout << "enter " << type << " second: ";
-			cin >> dateTime.tm_sec;
-			if (cin.fail() || dateTime.tm_sec < 0 || dateTime.tm_sec > 59) {
-				cin.clear();
-				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-				cerr << "invalid second. please enter a second between 0 and 59.\n";
-				continue;
-			}
-			break;
-		}
-
-		cin.ignore();
-		return dateTime;
+	bool isleapyear(int year) const {
+		return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
 	}
 
-
-public:
-	ToDoList() :_taskCount(0) {}
-
-	void addTask(const Task& task) {
-		if (_taskCount < MAX_TASKS) {
-			_tasks[_taskCount++] = task;
-		}
-		else {
-			cout << "Task list is full!" << endl;
-		}
+	bool isValid() const {
+		if (year < 1900 || year > 2100) return false;
+		if (month < 1 || month > 12) return false;
+		if (day < 1 || day > getdaysinmonth(year, month)) return false;
+		if (hour < 0 || hour > 23) return false;
+		if (minute < 0 || minute > 59) return false;
+		if (second < 0 || second > 59) return false;
+		return true;
 	}
 
-	void addTask(const string& name, const string& description, Priority priority_level, const tm& startdatetime, const tm& enddatetime) {
-		if (_taskCount < MAX_TASKS) {
-			_tasks[_taskCount++] = Task(name, description, priority_level, startdatetime, enddatetime);
-		}
-		else {
-			cout << "Task list is full!" << endl;
-		}
+	void display() const {
+		cout << day << "." << month << "." << year << " " << hour << ":" << minute << ":" << second;
 	}
 
-	void addTask() {
-		if (_taskCount < MAX_TASKS) {
-			Task task;
-			string name, description;
-			int priority;
+	// Convert task to JSON
+	json toJson() const {
+		json j;
+		j["year"] = year;
+		j["month"] = month;
+		j["day"] = day;
+		j["hour"] = hour;
+		j["minute"] = minute;
+		j["second"] = second;
 
-			cout << "Enter task name: ";
-			cin.ignore();
-			getline(cin, name);
-			task.setName(name);
-
-			cout << "Enter task description: ";
-			getline(cin, description);
-			task.setDescription(description);
-
-			cout << "Enter task priority (0: LOW, 1: MEDIUM, 2: HIGH, 3: CRITICAL, 4: URGENT): ";
-			cin >> priority;
-			task.setPriority(static_cast<Priority>(priority));
-
-			task.setStartDateTime(getDateTime(" start "));
-			task.setEndDateTime(getDateTime(" end "));
-
-			_tasks[_taskCount++] = task;
-		}
-		else {
-			cerr << "Task list is full!" << endl;
-		}
+		return j;
 	}
 
-	void removeTask(size_t index) {
-		if (index < _taskCount) {
-			for (size_t i = index; i < _taskCount - 1; ++i) {
-				_tasks[i] = _tasks[i + 1];
-			}
-			--_taskCount;
-		}
-		else {
-			cout << "Invalid task index!" << endl;
-		}
+	// Convert JSON to task
+	static DateTime fromJson(const json& j) {
+		return DateTime(
+			j["year"],
+			j["month"],
+			j["day"],
+			j["hour"],
+			j["minute"],
+			j["second"]
+		);
 	}
-
-	void removeTask(const string& name) {
-		for (size_t i = 0; i < _taskCount; ++i) {
-			if (_tasks[i].getName() == name) {
-				removeTask(i);
-				return;
-			}
-		}
-		cout << "Task not found!" << endl;
-	}
-
-	void removeTask(const Task& task) {
-		for (size_t i = 0; i < _taskCount; ++i) {
-			if (_tasks[i].getName() == task.getName()) {
-				removeTask(i);
-				return;
-			}
-		}
-		cout << "Task not found!" << endl;
-	}
-
-	void allTasks() const {
-		if (_taskCount == 0) {
-			cout << "No tasks available!" << endl;
-			return;
-		}
-		for (size_t i = 0; i < _taskCount; ++i) {
-			_tasks[i].display();
-		}
-	}
-
-	void findTaskByName(const string& name) const {
-		for (size_t i = 0; i < _taskCount; ++i) {
-			if (_tasks[i].getName() == name) {
-				cout << "\vTask found!" << endl;
-				_tasks[i].display();
-				return;
-			}
-		}
-		cout << "Task not found!" << endl;
-	}
-
-	void findTaskByPriority(Priority priority) const {
-		bool found = false;
-		for (size_t i = 0; i < _taskCount; ++i) {
-			if (_tasks[i].getPriority() == priority) {
-				cout << "\vTask found!" << endl;
-				_tasks[i].display();
-				found = true;
-			}
-		}
-		if (!found) {
-			cout << "No tasks found with the specified priority!" << endl;
-		}
-	}
-
-	void findByDescription(const string& description) const {
-		bool found = false;
-		for (size_t i = 0; i < _taskCount; ++i) {
-			if (_tasks[i].getDescription() == description) {
-				cout << "\vTask found!" << endl;
-				_tasks[i].display();
-				found = true;
-			}
-		}
-		if (!found) {
-			cout << "No tasks found with the specified description!" << endl;
-		}
-	}
-
-	void findTaskByDate(const tm& date) const {
-		bool found = false;
-		for (size_t i = 0; i < _taskCount; ++i) {
-			if (_tasks[i].getStartDateTime().tm_year == date.tm_year &&
-				_tasks[i].getStartDateTime().tm_mon == date.tm_mon &&
-				_tasks[i].getStartDateTime().tm_mday == date.tm_mday) {
-				cout << "\vTask found!" << endl;
-				_tasks[i].display();
-				found = true;
-			}
-		}
-		if (!found) {
-			cout << "No tasks found on the specified date!" << endl;
-		}
-	}
-
-	void tasksForDay()const {
-		for (size_t i = 0; i < _taskCount; ++i) {
-			if (_tasks[i].getEndDateTime().tm_mday - _tasks[i].getStartDateTime().tm_mday == 1) {
-				cout << "\vTask found!" << endl;
-				_tasks[i].display();
-			}
-			else {
-				cout << "No tasks found in the specified day!" << endl;
-			}
-		}
-	}
-
-	void tasksForWeek(const tm& date) const {
-		bool found = false;
-		for (size_t i = 0; i < _taskCount; ++i) {
-			if (_tasks[i].getEndDateTime().tm_mday - _tasks[i].getStartDateTime().tm_mday <= 7) {
-				cout << "\vTask found!" << endl;
-				_tasks[i].display();
-				found = true;
-			}
-		}
-		if (!found) {
-			cout << "No tasks found in the specified week!" << endl;
-		}
-	}
-
-	void tasksForMonth() const {
-		for (size_t i = 0; i < _taskCount; i++)
-		{
-			if (_tasks[i].getEndDateTime().tm_mday - _tasks[i].getStartDateTime().tm_mday <= 31)
-			{
-				cout << "\vTask found!" << endl;
-				_tasks[i].display();
-			}
-			else
-			{
-				cout << "No tasks found in the specified month!" << endl;
-			}
-		}
-	}
-
-	void sortByPriority() {
-		for (size_t i = 0; i < _taskCount - 1; ++i) {
-			for (size_t j = 0; j < _taskCount - i - 1; ++j) {
-				if (_tasks[j].getPriority() > _tasks[j + 1].getPriority()) {
-					swap(_tasks[j], _tasks[j + 1]);
-				}
-			}
-		}
-	}
-
-	void sortByDate() {
-		for (size_t i = 0; i < _taskCount - 1; ++i) {
-			for (size_t j = 0; j < _taskCount - i - 1; ++j) {
-				if (difftime(mktime(&_tasks[j].getStartDateTime()), mktime(&_tasks[j + 1].getStartDateTime())) > 0) {
-					swap(_tasks[j], _tasks[j + 1]);
-				}
-			}
-		}
-	}
-
-	void updateTaskByIndex(size_t index) {
-		for (size_t i = 0; i < _taskCount; i++)
-		{
-			if (i = index)
-			{
-				string name, description;
-				int priority;
-				cout << "Enter new task name (current: " << _tasks[i].getName() << ')';
-				cin.ignore();
-				getline(cin, name);
-				_tasks[i].setName(name);
-				cout << "Enter new task description (current: " << _tasks[i].getDescription() << ')';
-				getline(cin, description);
-				_tasks[i].setDescription(description);
-				cout << "Enter new task priority (0: LOW, 1: MEDIUM, 2: HIGH, 3: CRITICAL, 4: URGENT) (current: " << _tasks[i].getPriority() << ')';
-				cin >> priority;
-				_tasks[i].setPriority(static_cast<Priority>(priority));
-				_tasks[i].setStartDateTime(getDateTime(" start "));
-				_tasks[i].setEndDateTime(getDateTime(" end "));
-			}
-			else
-			{
-				cout << "Task not found!" << endl;
-			}
-		}
-	}
-
-	void updateTaskByName(string& name) {
-		for (size_t i = 0; i < _taskCount; i++)
-		{
-			string _name = _tasks[i].getName();
-			toLowerCase(_name);
-			toLowerCase(name);
-			if (_name == name)
-			{
-				string name, description;
-				int priority;
-				cout << "Enter new task name (current: " << _tasks[i].getName() << ')';
-				cin.ignore();
-				getline(cin, name);
-				_tasks[i].setName(name);
-				cout << "Enter new task description (current: " << _tasks[i].getDescription() << ')';
-				getline(cin, description);
-				_tasks[i].setDescription(description);
-				cout << "Enter new task priority (0: LOW, 1: MEDIUM, 2: HIGH, 3: CRITICAL, 4: URGENT) (current: " << _tasks[i].getPriority() << ')';
-				cin >> priority;
-				_tasks[i].setPriority(static_cast<Priority>(priority));
-				_tasks[i].setStartDateTime(getDateTime(" start "));
-				_tasks[i].setEndDateTime(getDateTime(" end "));
-			}
-			else
-			{
-				cout << "Task not found!" << endl;
-			}
-		}
-	}
-
-	void updateTaskByDescription(string& description) {
-		for (size_t i = 0; i < _taskCount; i++)
-		{
-			string _description = _tasks[i].getDescription();
-			toLowerCase(_description);
-			toLowerCase(description);
-			if (_description == description)
-			{
-				string name, description;
-				int priority;
-				cout << "Enter new task name (current: " << _tasks[i].getName() << ')';
-				cin.ignore();
-				getline(cin, name);
-				_tasks[i].setName(name);
-				cout << "Enter new task description (current: " << _tasks[i].getDescription() << ')';
-				getline(cin, description);
-				_tasks[i].setDescription(description);
-				cout << "Enter new task priority (0: LOW, 1: MEDIUM, 2: HIGH, 3: CRITICAL, 4: URGENT) (current: " << _tasks[i].getPriority() << ')';
-				cin >> priority;
-				_tasks[i].setPriority(static_cast<Priority>(priority));
-				_tasks[i].setStartDateTime(getDateTime(" start "));
-				_tasks[i].setEndDateTime(getDateTime(" end "));
-			}
-			else
-			{
-				cout << "Task not found!" << endl;
-			}
-		}
-	}
-
-
-
-
-
-
-
-
-
-
 
 };
 
 
-#pragma endregion
+enum Priority {
+	LOW,
+	MEDIUM,
+	HIGH,
+	CRITICAL,
+	URGENT
+};
+
+
+string toLowerCase(string& text) {
+	for (size_t i = 0; i < text.length(); ++i) {
+		text[i] = tolower(text[i]);
+	}
+	return text;
+}
+
+string getHiddenÝnput() {
+	string password;
+	char ch;
+	while (true) {
+		ch = _getch();
+		if (ch == ENTER_KEY) {
+			break;
+		}
+		else if (ch == 8) { // Backspace key
+			if (!password.empty()) {
+				password.pop_back();
+				cout << "\b \b"; // Move back, print space, move back again
+			}
+		}
+		else {
+			password += ch;
+			cout << '*'; // Print symbol for each character
+		}
+	}
+	cout << endl;
+	return password;
+}
+
+Priority stringToPriority(string priority) {
+	string lower = toLowerCase(priority);
+	if (lower == "low") return Priority::LOW;
+	if (lower == "medium") return Priority::MEDIUM;
+	if (lower == "high") return Priority::HIGH;
+	if (lower == "critical") return Priority::CRITICAL;
+	if (lower == "urgent") return Priority::URGENT;
+	return Priority::LOW;
+}
+
+string priorityToString(Priority priority) {
+
+	switch (priority) {
+	case Priority::LOW: return "Low";
+	case Priority::MEDIUM: return "Medium";
+	case Priority::HIGH: return "High";
+	case Priority::CRITICAL: return "Critical";
+	case Priority::URGENT: return "Urgent";
+	default: return "Unknown";
+	}
+}
+
+class Task {
+private:
+	string _name;
+	string _description;
+	Priority _priority;
+	DateTime _startTime;
+	DateTime _endTime;
+	bool _completed;
+	char symbol = 253;
+
+public:
+
+	Task() : _name(""), _description(""), _priority(Priority::LOW),
+		_startTime(), _endTime(), _completed(false) {
+	}
+
+	Task(const string& n, const string& desc, Priority prio,
+		const DateTime& start, const DateTime& end, bool comp = false)
+		: _name(n), _description(desc), _priority(prio),
+		_startTime(start), _endTime(end), _completed(comp) {
+	}
+
+
+	void display() {
+		cout << "\v~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\v" << endl;
+		cout << "Name: " << _name << " [" << priorityToString(_priority) << "]." << endl;
+		cout << "Description: " << _description << endl;
+		cout << "Start time: "; _startTime.display(); cout << endl;
+		cout << "End time: "; _endTime.display(); cout << endl;
+		cout << "\v~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\v" << endl;
+		if (_completed) {
+			cout << "Status: " << "\033[1;32m" << symbol << "\033[0m" << endl;
+		}
+		else {
+			cout << "Status: " << "\033[1;31m" << symbol << "\033[0m" << endl;
+		}
+	}
+
+	// Convert task to JSON
+	json toJson() const {
+		json j;
+		j["name"] = _name;
+		j["description"] = _description;
+		j["priority"] = static_cast<int>(_priority);
+		j["startTime"] = _startTime.toJson();
+		j["endTime"] = _endTime.toJson();
+		j["completed"] = _completed;
+
+		return j;
+	}
+
+	// Convert JSON to task
+	static Task fromJson(const json& j) {
+		Task task;
+		task._name = j["name"];
+		task._description = j["description"];
+		task._priority = static_cast<Priority>(j["priority"].get<int>());
+		task._startTime = DateTime::fromJson(j["startTime"]);
+		task._endTime = DateTime::fromJson(j["endTime"]);
+		task._completed = j["completed"];
+
+		return task;
+	}
+
+};
+
+
+class User {
+private:
+	static const int Max = 100;
+	string _username;
+	string _password;
+	vector<Task> _tasks;
+
+public:
+
+	User() {};
+
+	User(const string& name, const string& password) : _username(name), _password(password) {}
+
+	static Task createUserInput() {
+		string name, description;
+		int priorityInput;
+		DateTime start, end;
+
+		cout << "Enter the task's name: ";
+		getline(cin, name);
+		cout << "Enter the task's description: ";
+		getline(cin, description);
+
+		do
+		{
+			cout << "Enter priority level (0:LOW, 1:MEDIUM, 2:HIGH, 3:CRITICAL, 4:URGENT)";
+			cin >> priorityInput;
+			if (priorityInput < 0 || priorityInput > 4)
+			{
+				cout << "Invalid priority! Please enter a value between 0 and 4." << endl;
+			}
+		} while (priorityInput < 0 || priorityInput > 4);
+		cin.ignore();
+
+
+
+	}
+
+	string getUsername()const { return _username; }
+
+	void addTask(const Task& task) {
+		_tasks.push_back(task);
+	}
+
+	/*void listTasks() const {
+	   for (size_t i = 0; i < _tasks.size(); i++) {
+		   _tasks[i].display();
+	   }
+	}*/
+
+
+	void saveToFile(const string& filename) const {
+		ofstream file(filename);
+		if (!file.is_open()) {
+			cerr << "Error: Could not open file for writing." << endl;
+			return;
+		}
+		json j;
+		j["username"] = _username;
+		j["password"] = _password;
+		j["tasks"] = json::array();
+		for (const auto& task : _tasks) {
+			j["tasks"].push_back(task.toJson());
+		}
+		file << j.dump(4);
+		file.close();
+	}
+
+	static User loadFromFile(const string& filename) {
+		ifstream file(filename);
+		json j;
+		file >> j;
+		User user(j["username"], "");
+		user._password = j["password"];
+		for (const auto& taskJson : j["tasks"]) {
+			user._tasks.push_back(Task::fromJson(taskJson));
+		}
+
+		return user;
+	}
+
+};
