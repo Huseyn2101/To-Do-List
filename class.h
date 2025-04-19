@@ -192,7 +192,7 @@ string toLowerCase(const string& text) {
 	return result;
 }
 
-string getHiddenİnput() {
+string getHiddenInput() {
 	string password;
 	char ch;
 	while (true) {
@@ -235,7 +235,7 @@ private:
 	DateTime _startTime;
 	DateTime _endTime;
 	bool _completed;
-	char symbol = 253;
+	int symbol = 253;
 
 public:
 
@@ -395,10 +395,36 @@ public:
 
 	string getUsername()const { return _username; }
 
+	const vector<Task>& getTasks() const { return _tasks; }
+
 	void addTask(const Task& task) {
 		_tasks.push_back(task);
 	}
 
+	void removeTask(size_t index) {
+		if (index > _tasks.size()) {
+			_tasks.erase(_tasks.begin() + index);
+		}
+	}
+
+	void updateTask(size_t index, const Task& task) {
+		if (index < _tasks.size()) {
+			_tasks[index] = task;
+		}
+		else {
+			cout << "Invalid index!" << endl;
+		}
+	}
+
+	void updateTask(size_t index) {
+		if (index < _tasks.size()) {
+			Task task = Task::createUserInput();
+			_tasks[index] = task;
+		}
+		else {
+			cout << "Invalid index!" << endl;
+		}
+	}
 
 	bool verifyPassword(const string& password) const {
 		return _hashpassword == hashPassword(password);
@@ -475,17 +501,14 @@ private:
 	}
 
 public:
-	UserManager(const string& filename) :_datafile(filename)
-	{
-		ifstream file(_datafile);
-		if (!file.is_open() || file.peek() == ifstream::traits_type::eof()) {
-			generateFakeData(_users);
-			cout << "Generated initial fake data for the system." << endl;
-		}
-		else {
-			file.close();
-			loadUsersFromFile();
-		}
+
+	UserManager(const string& datafile) : _datafile(datafile) {
+		loadUsersFromFile();
+	}
+
+
+	~UserManager() {
+		saveUsersToFile();
 	}
 
 	void addUser(const User& user) {
@@ -499,6 +522,46 @@ public:
 		_users.push_back(user);
 		saveUsersToFile();
 		cout << "User added successfully!" << endl;
+	}
+
+	bool addTaskForUser(const string& username, const Task& task) {
+		for (auto& user : _users)
+		{
+			if (user.getUsername() == username) {
+				user.addTask(task);
+				saveUsersToFile();
+				return true;
+			}
+		}
+		cout << "User not found!" << endl;
+		return false;
+	}
+
+
+	bool removeTaskForUser(const string& username, size_t index) {
+		for (auto& user : _users)
+		{
+			if (user.getUsername() == username) {
+				user.removeTask(index);
+				saveUsersToFile();
+				return true;
+			}
+		}
+		cout << "User not found!" << endl;
+		return false;
+	}
+
+	bool updateTaskForUser(const string& username, size_t index, const Task& task) {
+		for (auto& user : _users)
+		{
+			if (user.getUsername() == username) {
+				user.updateTask(index, task);
+				saveUsersToFile();
+				return true;
+			}
+		}
+		cout << "User not found!" << endl;
+		return false;
 	}
 
 	User* authenticateUser(const string& username, const string& password) {
@@ -536,55 +599,75 @@ public:
 	}
 
 	void saveUsersToFile() {
-		json j = json::array();
-		for (const auto& user : _users)
-		{
-			j.push_back(user.toJson());
+		try {
+			json j = json::array();
+			for (const auto& user : _users) {
+				j.push_back(user.toJson());
+			}
+			ofstream file(_datafile);
+			if (!file.is_open()) {
+				throw runtime_error("Could not open file for writing." + _datafile);
+				return;
+			}
+
+			file << setw(4) << j << endl;
+			file.close();
+
+			cout << "Data successfully saved to " << _datafile << endl;
 		}
-		ofstream file(_datafile);
-		if (!file.is_open()) {
-			cerr << "Error: Could open file for writing!" << endl;
-			return;
+		catch (const exception& e) {
+			cerr << "Error saving to file: " << e.what() << endl;
 		}
-		file << j.dump(4);
-		file.close();
+		catch (...) {
+			cerr << "Unknown error occurred while saving to file." << endl;
+		}
 	}
 
 	void loadUsersFromFile() {
-		ifstream file(_datafile);
-		if (!file.is_open()) {
-			cerr << "Error: Could not open file. Generating default data.\n";
-			generateFakeData(_users);  // Generate data if file doesn't exist
-			return;
-		}
-
 		try {
+			ifstream file(_datafile);
+			if (!file.is_open()) {
+				cout << "No existing data file found. Generating initial data..." << endl;
+				generateFakeData(_users);
+				return;
+			}
+
 			json j;
 			file >> j;
-			if (j.empty()) {
-				generateFakeData(_users);
+
+			_users.clear();
+
+			for (const auto& userJson : j) {
+				_users.push_back(User::fromJson(userJson));
 			}
-			else {
-				for (const auto& userJson : j) {
-					_users.push_back(User::fromJson(userJson));
-				}
-			}
+
+			cout << "Successfully loaded " << _users.size() << " users from file." << endl;
 		}
 		catch (const json::exception& e) {
-			cerr << "JSON Error: " << e.what() << "\n";
-			generateFakeData(_users);  // Regenerate data if corrupted
+			cerr << "Json parsinng error: " << e.what() << endl;
+			cout << "Generating new data due to corrupted file..." << endl;
+			generateFakeData(_users);
+		}
+		catch (const exception& e) {
+			cerr << "Error loading from file: " << e.what() << endl;
+			cout << "Generating new data due to corrupted file..." << endl;
+			generateFakeData(_users);
+		}
+		catch (...) {
+			cerr << "Unknown error occurred while loading from file." << endl;
 		}
 	}
 
+
 	void generateFakeData(vector<User>& users) {
-		User user1("nhu55uxn", "R3alFutb0l!@#"),
-			user2("ako_ismahilov", "Gam3Over_420!"),
-			user3("h_haciyefh", "N1vaPower++22"),
-			user4("404nilfound", "RusAze_123!Code"),
-			user5("axmedli_cs", "C$Strike4Life"),
-			user6("gulchin_snoozer", "Sl33pAlarmFail@7"),
-			user7("vistoria_vito", "V1t0Black_Pro99"),
-			user8("tamerlan_trainMan", "QabalaFan4ever!");
+		User user1("nhu55uxn", "g7mkz2tu"),
+			user2("ako_ismahilov", "h3lreq9p"),
+			user3("h_haciyefh", "tb5wcz1k"),
+			user4("404nilfound", "qs8jx4mv"),
+			user5("axmedli_cs", "m9zuey2t"),
+			user6("gulchin_snoozer", "f2rkl7nb"),
+			user7("vistoria_vito", "d6whqe3n"),
+			user8("tamerlan_trainMan", "u1jvmc9x");
 
 		// Tasks for user1 - Huseyn
 		user1.addTask(Task("Watch El Clasico Replay", "Re-watch Real Madrid's thrilling win and analyze their offensive and defensive transitions thoroughly.", HIGH, DateTime(2025, 4, 16, 21, 0, 0), DateTime(2025, 4, 16, 23, 0, 0)));
