@@ -1,29 +1,7 @@
 [
     {
-        "password": "8417972283975780034",
+        "password": "15567223129847479128",
         "tasks": [
-            {
-                "completed": false,
-                "description": "Review backend login code and solve token expiration bugs and redirect loops.",
-                "endTime": {
-                    "day": 20,
-                    "hour": 15,
-                    "minute": 30,
-                    "month": 4,
-                    "second": 0,
-                    "year": 2025
-                },
-                "name": "Backend Login Fix",
-                "priority": 3,
-                "startTime": {
-                    "day": 20,
-                    "hour": 14,
-                    "minute": 0,
-                    "month": 4,
-                    "second": 0,
-                    "year": 2025
-                }
-            },
             {
                 "completed": false,
                 "description": "Re-watch Real Madrid's thrilling win and analyze their offensive and defensive transitions thoroughly.",
@@ -38,12 +16,12 @@
                 "name": "Watch El Clasico Replay",
                 "priority": 2,
                 "startTime": {
-                    "day": 16,
-                    "hour": 21,
+                    "day": 0,
+                    "hour": 0,
                     "minute": 0,
-                    "month": 4,
+                    "month": 0,
                     "second": 0,
-                    "year": 2025
+                    "year": 0
                 }
             },
             {
@@ -60,34 +38,12 @@
                 "name": "Read Quran Peacefully",
                 "priority": 2,
                 "startTime": {
-                    "day": 16,
-                    "hour": 23,
-                    "minute": 30,
-                    "month": 4,
-                    "second": 0,
-                    "year": 2025
-                }
-            },
-            {
-                "completed": false,
-                "description": "Build a Python-based app to track matches using live football data APIs.",
-                "endTime": {
-                    "day": 18,
-                    "hour": 22,
+                    "day": 0,
+                    "hour": 0,
                     "minute": 0,
-                    "month": 4,
+                    "month": 0,
                     "second": 0,
-                    "year": 2025
-                },
-                "name": "Football Tracker App",
-                "priority": 2,
-                "startTime": {
-                    "day": 18,
-                    "hour": 20,
-                    "minute": 0,
-                    "month": 4,
-                    "second": 0,
-                    "year": 2025
+                    "year": 0
                 }
             },
             {
@@ -104,12 +60,34 @@
                 "name": "Work on Dribbling",
                 "priority": 1,
                 "startTime": {
-                    "day": 17,
-                    "hour": 18,
+                    "day": 0,
+                    "hour": 0,
+                    "minute": 0,
+                    "month": 0,
+                    "second": 0,
+                    "year": 0
+                }
+            },
+            {
+                "completed": false,
+                "description": "Build a Python-based app to track matches using live football data APIs.",
+                "endTime": {
+                    "day": 18,
+                    "hour": 22,
                     "minute": 0,
                     "month": 4,
                     "second": 0,
                     "year": 2025
+                },
+                "name": "Football Tracker App",
+                "priority": 2,
+                "startTime": {
+                    "day": 0,
+                    "hour": 0,
+                    "minute": 0,
+                    "month": 0,
+                    "second": 0,
+                    "year": 0
                 }
             },
             {

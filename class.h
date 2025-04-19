@@ -1,30 +1,46 @@
 ﻿#pragma once
 
 
-#define ENTER_KEY 13
 
-//#pragma warning(disable : 4996)
+#define KEY_UP 72
+#define KEY_DOWN 80
+#define KEY_RIGHT 77
+#define KEY_LEFT 75
+#define ESC 27
+#define ENTER_KEY 13
+#define SHIFT 16
+
+#define COLOR_RESET "\033[0m"
+#define COLOR_RED "\033[31m"
+#define COLOR_GREEN "\033[32m"
+#define COLOR_YELLOW "\033[33m"
+#define COLOR_BLUE "\033[34m"
+#define COLOR_MAGENTA "\033[35m"
+#define COLOR_CYAN "\033[36m"
+#define COLOR_WHITE "\033[37m"
+#define COLOR_BOLD "\033[1m"
+
 
 struct LoginAttempt {
 	int failedAttempts = 0;
-	chrono::system_clock::time_point blockUntill = chrono::system_clock::time_point::min();
+	std::chrono::system_clock::time_point blockUntil = std::chrono::system_clock::time_point{};
 
-	bool isBlocked()const {
-		auto now = chrono::system_clock::now();
-		return now < blockUntill;
+	bool isBlocked() const {
+		auto now = std::chrono::system_clock::now();
+		return now < blockUntil;
 	}
 
 	void registerFailure() {
 		failedAttempts++;
 		if (failedAttempts >= 3) {
-			blockUntill = chrono::system_clock::now() + chrono::minutes(5);
+			blockUntil = std::chrono::system_clock::now() + std::chrono::minutes(5);
 			failedAttempts = 0;
 		}
 	}
 
 	void resetAttempts() {
 		failedAttempts = 0;
-		blockUntill = chrono::system_clock::time_point::min();
+		blockUntil = std::chrono::system_clock::time_point{};
 	}
 };
 
@@ -125,6 +141,16 @@ struct DateTime {
 			hour == other.hour && minute == other.minute && second == other.second;
 	}
 
+	friend std::ostream& operator<<(std::ostream& os, const DateTime& dt) {
+		os << (dt.day < 10 ? "0" : "") << dt.day << "."
+			<< (dt.month < 10 ? "0" : "") << dt.month << "."
+			<< dt.year << " "
+			<< (dt.hour < 10 ? "0" : "") << dt.hour << ":"
+			<< (dt.minute < 10 ? "0" : "") << dt.minute << ":"
+			<< (dt.second < 10 ? "0" : "") << dt.second;
+		return os;
+	}
+
 	int getdaysinmonth(int year, int month) const {
 		if (month == 2) {
 			return isleapyear(year) ? 29 : 28;
@@ -150,12 +176,16 @@ struct DateTime {
 	}
 
 	void display() const {
-		cout << '\t' << (day < 10 ? "0" : "") << day << "."
+		cout << ' ' << (day < 10 ? "0" : "") << day << "."
 			<< (month < 10 ? "0" : "") << month << "."
 			<< year << " "
 			<< (hour < 10 ? "0" : "") << hour << ":"
 			<< (minute < 10 ? "0" : "") << minute << ":"
 			<< (second < 10 ? "0" : "") << second << endl;
+	}
+
+	DateTime operator<<(DateTime& datetime) {
+		datetime.display();
 	}
 
 	// Convert task to JSON
@@ -235,7 +265,7 @@ private:
 	DateTime _startTime;
 	DateTime _endTime;
 	bool _completed;
-	int symbol = 253;
+	char symbol = 254;
 
 public:
 
@@ -247,6 +277,78 @@ public:
 		const DateTime& start, const DateTime& end, bool comp = false)
 		: _name(n), _description(desc), _priority(prio),
 		_startTime(start), _endTime(end), _completed(comp) {
+	}
+
+	Task(const Task& other)
+		:_name(other._name),
+		_description(other._description),
+		_priority(other._priority),
+		_startTime(other._startTime),
+		_endTime(other._endTime),
+		_completed(other._completed),
+		symbol(other.symbol)
+	{
+	}
+
+	Task(Task&& other) noexcept
+		: _name(move(other._name)),
+		_description(move(other._description)),
+		_priority(move(other._priority)),
+		_startTime(move(_startTime)),
+		_endTime(move(other._endTime)),
+		_completed(move(other._completed)),
+		symbol(move(other.symbol))
+	{
+	}
+
+	Task& operator=(const Task& other) {
+		if (this != &other) {
+			_name = other._name;
+			_description = other._description;
+			_priority = other._priority;
+			_startTime = other._startTime;
+			_endTime = other._endTime;
+			_completed = other._completed;
+			symbol = other.symbol;
+		}
+		return *this;
+	}
+
+	Task& operator=(Task&& other) noexcept {
+		if (this != &other) {
+			_name = std::move(other._name);
+			_description = std::move(other._description);
+			_priority = other._priority;
+			_startTime = std::move(other._startTime);
+			_endTime = std::move(other._endTime);
+			_completed = other._completed;
+			symbol = other.symbol;
+		}
+		return *this;
+	}
+
+	void setName(const string& name) {
+		_name = name;
+	}
+
+	void setDescription(const string& description) {
+		_description = description;
+	}
+
+	void setPriority(Priority priority) {
+		_priority = priority;
+	}
+
+	void setStartTime(const DateTime& start) {
+		_startTime = start;
+	}
+
+	void setEndTime(const DateTime& end) {
+		_endTime = end;
+	}
+
+	void setStatus(bool completed) {
+		_completed = completed;
 	}
 
 	static Task createUserInput() {
@@ -321,6 +423,14 @@ public:
 		cout << "\v~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\v" << endl;
 	}
 
+	string getName() const {
+		return _name;
+	}
+
+	string getDescription() const {
+		return _description;
+	}
+
 	Priority getPriority() const {
 		return _priority;
 	}
@@ -332,6 +442,12 @@ public:
 	DateTime getEndTime() const {
 		return _endTime;
 	}
+
+	bool getStatus() const {
+		return _completed;
+	}
+
+
 
 	static string priorityToString(Priority priority) {
 		switch (priority) {
@@ -401,8 +517,23 @@ public:
 		_tasks.push_back(task);
 	}
 
+	vector<Task>& getTasks() { return _tasks; }
+
+
+	void removeTask(const string text) {
+		auto it = find_if(_tasks.begin(), _tasks.end(), [&](const Task& task) {
+			return task.getName() == text;
+			});
+		if (it != _tasks.end()) {
+			_tasks.erase(it);
+		}
+		else {
+			cout << "Task not found!" << endl;
+		}
+	}
+
 	void removeTask(size_t index) {
-		if (index > _tasks.size()) {
+		if (index < _tasks.size()) {
 			_tasks.erase(_tasks.begin() + index);
 		}
 	}
@@ -410,19 +541,6 @@ public:
 	void updateTask(size_t index, const Task& task) {
 		if (index < _tasks.size()) {
 			_tasks[index] = task;
-		}
-		else {
-			cout << "Invalid index!" << endl;
-		}
-	}
-
-	void updateTask(size_t index) {
-		if (index < _tasks.size()) {
-			Task task = Task::createUserInput();
-			_tasks[index] = task;
-		}
-		else {
-			cout << "Invalid index!" << endl;
 		}
 	}
 
@@ -550,6 +668,7 @@ public:
 		cout << "User not found!" << endl;
 		return false;
 	}
+
 
 	bool updateTaskForUser(const string& username, size_t index, const Task& task) {
 		for (auto& user : _users)
@@ -757,3 +876,486 @@ public:
 	}
 
 };
+
+
+#pragma region Display
+
+void hideCursor() {
+	cout << "\033[?25l"; // Hide cursor
+}
+
+void showCursor() {
+	cout << "\033[?25h"; // Show cursor
+}
+
+void clearLine() {
+	cout << "\r" << string(100, ' ') << "\r"; // Clear the current line
+}
+
+void classicProgressBar(int duration = 3) {
+	hideCursor();
+	auto start = high_resolution_clock::now();
+	auto end = start + seconds(duration);
+
+	int barWidth = 50;
+	while (high_resolution_clock::now() < end) {
+		float progress = 1.0f - duration_cast<milliseconds>(end - high_resolution_clock::now()).count() / (duration * 1000.0f);
+		int pos = barWidth * progress;
+
+		cout << "\r[";
+		for (int i = 0; i < barWidth; ++i) {
+			if (i < pos) cout << "=";
+			else if (i == pos) cout << ">";
+			else cout << " ";
+		}
+		cout << "] " << int(progress * 100.0) << "%";
+		cout.flush();
+		sleep_for(milliseconds(50));
+	}
+	clearLine();
+	showCursor();
+}
+
+void welcomeMessage() {
+	cout << R"(
+                                    _____         _          _____           _ 
+                                   |_   _|       | |        |_   _|         | |
+                                     | | __ _ ___| | __       | | ___   ___ | |
+                                     | |/ _` / __| |/ /       | |/ _ \ / _ \| |
+                                     | | (_| \__ \   <        | | (_) | (_) | |
+                                     \_/\__,_|___/_|\_\       \_/\___/ \___/|_|
+                                                                  
+)" << endl;
+
+	cout << "\033[1;36m" << "Welcome to TaskMaster Pro - Your Ultimate Task Management System!" << "\033[0m" << endl;
+	cout << "\033[1;33m" << "Version 2.4.1 | Secure Login Enabled | Multi-User Support" << "\033[0m" << endl << endl;
+
+	cout << "Features:" << endl;
+	cout << static_cast<char>(250) << " Secure user authentication" << endl;
+	cout << static_cast<char>(250) << " Priority-based task organization" << endl;
+	cout << static_cast<char>(250) << " DateTime scheduling with validation" << endl;
+	cout << static_cast<char>(250) << " JSON data persistence" << endl;
+	cout << static_cast<char>(250) << " Beautiful console interface" << endl << endl;
+
+	cout << "\033[3m" << "Please login to access your tasks or register as a new user." << "\033[0m" << endl;
+	cout << "----------------------------------------------------" << endl;
+}
+
+User* login(UserManager& userManager) {
+	string username, password;
+	cout << "\n=== LOGIN ===\n";
+	cout << "Enter username: ";
+	getline(cin, username);
+	cout << "Enter password: ";
+	password = getHiddenInput();
+
+	return userManager.authenticateUser(username, password);
+}
+
+
+void registerUser(UserManager& userManager) {
+	string username, password;
+	cout << "\n=== REGISTER ===\n";
+	cout << "Enter username: ";
+	getline(cin, username);
+	cout << "Enter password: ";
+	password = getHiddenInput();
+	User newUser(username, password);
+	userManager.addUser(newUser);
+	cout << "Registration successful! You can now log in." << endl;
+}
+
+void viewTasksByPriority(User* user) {
+	cout << "\n=== FILTER TASKS BY PRIORITY ===\n";
+	cout << "Enter priority (0:LOW, 1:MEDIUM, 2:HIGH, 3:CRITICAL, 4:URGENT): ";
+	int priority;
+	cin >> priority;
+	cin.ignore();
+
+	if (priority >= 0 && priority <= 4) {
+		user->filterByPriority(static_cast<Priority>(priority));
+	}
+	else {
+		cout << "Invalid priority level!\n";
+	}
+}
+
+void viewTasksByDateRange(User* user) {
+	cout << "\n=== FILTER TASKS BY DATE RANGE ===\n";
+	DateTime start, end;
+	bool validStart = false, validEnd = false;
+
+	do {
+		cout << "Enter start date (YYYY MM DD HH MM SS): ";
+		cin >> start.year >> start.month >> start.day >> start.hour >> start.minute >> start.second;
+		if (!start.isValid()) {
+			cout << "Invalid start date! Please try again.\n";
+		}
+		else {
+			validStart = true;
+		}
+	} while (!validStart);
+
+	do {
+		cout << "Enter end date (YYYY MM DD HH MM SS): ";
+		cin >> end.year >> end.month >> end.day >> end.hour >> end.minute >> end.second;
+		if (!end.isValid()) {
+			cout << "Invalid end date! Please try again.\n";
+		}
+		else if (end < start) {
+			cout << "End date cannot be earlier than start date! Please try again.\n";
+		}
+		else {
+			validEnd = true;
+		}
+	} while (!validEnd);
+	cin.ignore();
+
+	user->filterTasksByDate(start, end);
+}
+
+void showDotsLoading(int durationSeconds = 3) {
+	using namespace std::chrono_literals;
+
+	auto start = std::chrono::steady_clock::now();
+	auto end = start + std::chrono::seconds(durationSeconds);
+
+	std::cout << "Loading";
+
+	while (std::chrono::steady_clock::now() < end) {
+		for (int i = 0; i < 3; i++) {
+			if (std::chrono::steady_clock::now() >= end) break;
+			std::cout << "." << std::flush;
+			std::this_thread::sleep_for(300ms);
+		}
+		std::cout << "\b\b\b   \b\b\b" << std::flush;
+	}
+	cout << "\b\b\b\b\b";
+	std::cout << "Loading Done!" << std::endl;
+}
+
+
+void showDotsExiting(int durationSeconds = 3) {
+	using namespace std::chrono_literals;
+
+	auto start = std::chrono::steady_clock::now();
+	auto end = start + std::chrono::seconds(durationSeconds);
+
+	std::cout << "App is closing";
+
+	while (std::chrono::steady_clock::now() < end) {
+		for (int i = 0; i < 3; i++) {
+			if (std::chrono::steady_clock::now() >= end) break;
+			std::cout << "." << std::flush;
+			std::this_thread::sleep_for(300ms);
+		}
+		std::cout << "\b\b\b   \b\b\b" << std::flush;
+	}
+	cout << "\b\b\b\b\b";
+	std::cout << "Closing Done!" << std::endl;
+}
+
+
+
+void displayUpdating(User* user) {
+	int choice = 0;
+	while (true)
+	{
+		system("cls||clear");
+		cout << "Use arrow keys to navigate and Enter to select." << endl;
+		if (user->getTasks().empty())
+		{
+			cout << "No tasks available." << endl;
+			break;
+		}
+		else {
+			int i = 0;
+			for (const auto& task : user->getTasks())
+			{
+				if (choice == i)
+				{
+					cout << COLOR_MAGENTA << i + 1 << ". " << task.getName() << endl;
+				}
+				else
+				{
+					cout << i + 1 << ". " << task.getName() << endl;
+				}
+				++i;
+			}
+		}
+
+		int c = _getch();
+		switch (_getch()) {
+		case KEY_UP:
+			if (choice > 0) choice--;
+			else choice = user->getTasks().size() - 1;
+			break;
+		case KEY_DOWN:
+			if (choice < user->getTasks().size() - 1) choice++;
+			else choice = 0;
+			break;
+		case ENTER_KEY:
+			if (!user->getTasks().empty()) {
+				cout << "Selected task: " << user->getTasks()[choice].getName() << endl;
+				user->getTasks()[choice].display();
+				cout << "Enter new task name(current: " << user->getTasks()[choice].getName() << "): ";
+				string newName;
+				getline(cin, newName);
+				if (!newName.empty()) {
+					user->getTasks()[choice].setName(newName);
+
+				}
+				cout << "Enter new task description(current: " << user->getTasks()[choice].getDescription() << "): ";
+				string newDescription;
+				getline(cin, newDescription);
+				if (!newDescription.empty()) {
+					user->getTasks()[choice].setDescription(newDescription);
+				}
+				cout << "Enter new task priority(current: " << user->getTasks()[choice].getPriority() << "): ";
+				int newPriority;
+				cin >> newPriority;
+				cin.ignore();
+				if (newPriority >= 0 && newPriority <= 4) {
+					user->getTasks()[choice].setPriority(static_cast<Priority>(newPriority));
+				}
+
+				cout << "Enter new task start date(current: " << user->getTasks()[choice].getStartTime() << "): ";
+				DateTime newStartDate;
+				cin >> newStartDate.year >> newStartDate.month >> newStartDate.day >> newStartDate.hour >> newStartDate.minute >> newStartDate.second;
+
+				if (newStartDate.isValid()) {
+					user->getTasks()[choice].setStartTime(newStartDate);
+				}
+
+				cout << "Enter new task end date(current: " << user->getTasks()[choice].getEndTime() << "): ";
+				DateTime newEndDate;
+				cin >> newEndDate.year >> newEndDate.month >> newEndDate.day >> newEndDate.hour >> newEndDate.minute >> newEndDate.second;
+				if (newEndDate.isValid()) {
+					user->getTasks()[choice].setEndTime(newEndDate);
+				}
+
+				cout << "Enter new task status(current: " << user->getTasks()[choice].getStatus() << "): ";
+				int newStatus;
+				cin >> newStatus;
+				cin.ignore();
+
+				cout << "Task updated successfully!" << endl;
+				cout << "Press any key to continue..." << endl;
+				(void)_getch();
+			}
+			break;
+		}
+	}
+}
+
+void displayRemoving(User* user) {
+	int choice = 0;
+	while (true)
+	{
+		system("cls||clear");
+		cout << "Use arrow keys to navigate and Enter to select." << endl;
+		if (user->getTasks().empty())
+		{
+			cout << "No tasks available." << endl;
+			break;
+		}
+		else {
+			int i = 0;
+			for (const auto& task : user->getTasks())
+			{
+				if (choice == i)
+				{
+					cout << COLOR_MAGENTA << i + 1 << ". " << task.getName() << COLOR_RESET << endl;
+				}
+				else
+				{
+					cout << i + 1 << ". " << task.getName() << endl;
+				}
+				++i;
+			}
+			cout << COLOR_RESET << endl;
+		}
+		int c = _getch();
+		switch (_getch()) {
+		case KEY_UP:
+			if (choice > 0) choice--;
+			else choice = user->getTasks().size() - 1;
+			break;
+		case KEY_DOWN:
+			if (choice < user->getTasks().size() - 1) choice++;
+			else choice = 0;
+			break;
+		case ENTER_KEY:
+			if (!user->getTasks().empty()) {
+				cout << "Selected task: " << user->getTasks()[choice].getName() << endl;
+				user->removeTask(choice);
+				cout << "Task removed successfully!" << endl;
+				cout << "Press any key to continue...";
+				(void)_getch();
+			}
+			break;
+		case ESC:
+			cout << "Exiting task removal..." << endl;
+			return;
+		default:
+			cout << "Invalid key pressed!" << endl;
+			break;
+		}
+	}
+}
+
+void displayTasks(User* user) {
+	int choice = 0;
+	while (true)
+	{
+		system("cls||clear");
+		cout << "Use arrow keys to navigate and Enter to select." << endl;
+		if (user->getTasks().empty())
+		{
+			cout << "No tasks available." << endl;
+			break;
+		}
+		else {
+			int i = 0;
+			for (const auto& task : user->getTasks())
+			{
+				if (choice == i)
+				{
+					cout << COLOR_MAGENTA << i + 1 << ". " << task.getName() << endl;
+				}
+				else
+				{
+					cout << i + 1 << ". " << task.getName() << endl;
+				}
+				++i;
+			}
+			cout << COLOR_RESET << endl;
+		}
+
+		int c = _getch();
+		switch (_getch()) {
+		case KEY_UP:
+			if (choice > 0) choice--;
+			else choice = user->getTasks().size() - 1;
+			break;
+		case KEY_DOWN:
+			if (choice < user->getTasks().size() - 1) choice++;
+			else choice = 0;
+			break;
+		case ENTER_KEY:
+			if (!user->getTasks().empty()) {
+				cout << "Selected task: " << user->getTasks()[choice].getName() << endl;
+				user->getTasks()[choice].display();
+				cout << "Press any key to continue...";
+				(void)_getch();
+			}
+			break;
+		case ESC:
+			cout << "Exiting task display..." << endl;
+			return;
+		default:
+			cout << "Invalid key pressed!" << endl;
+			break;
+		}
+	}
+}
+
+
+void displayMenu(UserManager& userManager) {
+	int choice = 0;
+
+	while (true) {
+		system("cls||clear");
+		welcomeMessage();
+		cout << "Use arrow keys to navigate and Enter to select." << endl;
+		cout << (choice == 0 ? COLOR_MAGENTA : COLOR_RESET) << "\v1. Login: " << endl;
+		cout << (choice == 1 ? COLOR_MAGENTA : COLOR_RESET) << "2. Register: " << endl;
+		cout << (choice == 2 ? COLOR_MAGENTA : COLOR_RESET) << "3. Exit: " << endl;
+		cout << COLOR_RESET << endl;
+
+		int c = _getch();
+		switch (c) {
+		case KEY_UP:
+			if (choice > 0) choice--;
+			else choice = 2;
+			break;
+		case KEY_DOWN:
+			if (choice < 2) choice++;
+			else choice = 0;
+			break;
+		case ENTER_KEY:
+			switch (choice) {
+			case 0: {
+				showDotsLoading();
+				User* user = login(userManager);
+				if (user != nullptr) {
+					classicProgressBar();
+					int userChoice = 0;
+					while (true) {
+						system("cls||clear");
+						cout << "Use arrow keys to navigate and Enter to select." << endl;
+						cout << "\033[1;36m" << "\n\nWelcome, " << user->getUsername() << "!" << "\033[0m\v\v" << endl;
+						cout << (userChoice == 0 ? COLOR_MAGENTA : COLOR_RESET) << "1. Add Task" << endl;
+						cout << (userChoice == 1 ? COLOR_MAGENTA : COLOR_RESET) << "2. Remove Task" << endl;
+						cout << (userChoice == 2 ? COLOR_MAGENTA : COLOR_RESET) << "3. Update Task" << endl;
+						cout << (userChoice == 3 ? COLOR_MAGENTA : COLOR_RESET) << "4. Display Tasks" << endl;
+						cout << (userChoice == 4 ? COLOR_MAGENTA : COLOR_RESET) << "5. Filter by Priority" << endl;
+						cout << (userChoice == 5 ? COLOR_MAGENTA : COLOR_RESET) << "6. Filter by Date" << endl;
+						cout << (userChoice == 6 ? COLOR_MAGENTA : COLOR_RESET) << "7. Logout" << endl;
+						cout << COLOR_RESET << endl;
+
+						int userInput = _getch();
+						switch (userInput) {
+						case KEY_UP:
+							if (userChoice > 0) userChoice--;
+							else userChoice = 6;
+							break;
+						case KEY_DOWN:
+							if (userChoice < 6) userChoice++;
+							else userChoice = 0;
+							break;
+						case ENTER_KEY:
+							switch (userChoice) {
+							case 0:
+								user->addTask(Task::createUserInput());
+								break;
+							case 1:
+								displayRemoving(user);
+								break;
+							case 2:
+								displayUpdating(user);
+								break;
+							case 3:
+								user->displayTasks();
+								break;
+							case 4:
+								user->filterByPriority(Priority::HIGH);
+								break;
+							case 5:
+								user->filterTasksByDate(DateTime(), DateTime());
+								break;
+							case 6:
+								return;
+							}
+							cout << "Press any key to continue..." << endl;
+							(void)_getch();
+							break;
+						}
+					}
+				}
+				break;
+			}
+			case 1:
+				registerUser(userManager);
+				break;
+			case 2:
+				showDotsExiting();
+				return;
+			}
+			break;
+		default:
+			break;
+		}
+	}
+}
+
