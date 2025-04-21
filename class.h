@@ -212,8 +212,6 @@ enum Priority {
 	URGENT
 };
 
-
-
 string toLowerCase(const string& text) {
 	string result = text;
 	for (char& c : result) {
@@ -351,62 +349,6 @@ public:
 		_completed = completed;
 	}
 
-	static Task createUserInput() {
-		string name, description;
-		int priorityInput;
-		DateTime start, end;
-		bool validStart = false, validEnd = false;
-
-		cout << "Enter the task's name: ";
-		getline(cin, name);
-		cout << "Enter the task's description: ";
-		getline(cin, description);
-
-		do
-		{
-			cout << "Enter priority level (0:LOW, 1:MEDIUM, 2:HIGH, 3:CRITICAL, 4:URGENT)";
-			cin >> priorityInput;
-			if (priorityInput < 0 || priorityInput > 4)
-			{
-				cout << "Invalid priority! Please enter a value between 0 and 4." << endl;
-			}
-		} while (priorityInput < 0 || priorityInput > 4);
-		cin.ignore();
-
-		do
-		{
-			cout << "Enter start time (YYYY MM DD HH MM SS): ";
-			cin >> start.year >> start.month >> start.day >> start.hour >> start.minute >> start.second;
-
-			if (!start.isValid()) {
-				cout << "Invalid start! please try again." << endl;
-			}
-			else {
-				validStart = true;
-			}
-		} while (!validStart);
-
-		do
-		{
-			cout << "Enter end time (YYYY MM DD HH MM SS): ";
-			cin >> end.year >> end.month >> end.day >> end.hour >> end.minute >> end.second;
-
-			if (!end.isValid()) {
-				cout << "Invalid end timr! Please try again." << endl;
-			}
-			else if (end < start) {
-				cout << "End time cannot be earlier than start time! Please try again." << endl;
-			}
-			else {
-				validEnd = true;
-			}
-		} while (!validEnd);
-		cin.ignore();
-
-		return Task(name, description, static_cast<Priority>(priorityInput), start, end);
-	}
-
-
 	void display() const {
 		cout << "\v~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\v" << endl;
 		cout << "Name: " << _name << endl;
@@ -508,6 +450,7 @@ public:
 	User(const string& uname, const string& password)
 		: _username(uname), _hashpassword(hashPassword(password)) {
 	}
+
 
 	string getUsername()const { return _username; }
 
@@ -735,10 +678,10 @@ public:
 			cout << "Data successfully saved to " << _datafile << endl;
 		}
 		catch (const exception& e) {
-			cerr << "Error saving to file: " << e.what() << endl;
+			cout << "Error saving to file: " << e.what() << endl;
 		}
 		catch (...) {
-			cerr << "Unknown error occurred while saving to file." << endl;
+			cout << "Unknown error occurred while saving to file." << endl;
 		}
 	}
 
@@ -855,7 +798,7 @@ public:
 		// Tasks for user8 - Tamerlan
 		user8.addTask(Task("Train Ride Reflection", "Write a short piece about experience living briefly on a train during summer.", LOW, DateTime(2025, 4, 17, 20, 0, 0), DateTime(2025, 4, 17, 20, 45, 0)));
 		user8.addTask(Task("Skip Class Strategy", "Re-evaluate academic priorities and plan how to improve attendance moving forward.", MEDIUM, DateTime(2025, 4, 18, 10, 0, 0), DateTime(2025, 4, 18, 11, 0, 0)));
-		user8.addTask(Task("Qəbələ Game Night", "Attend Qəbələ FC match with friends and enjoy stadium atmosphere.", HIGH, DateTime(2025, 4, 19, 18, 0, 0), DateTime(2025, 4, 19, 20, 0, 0)));
+		user8.addTask(Task("Qabala Game Night", "Attend Qəbələ FC match with friends and enjoy stadium atmosphere.", HIGH, DateTime(2025, 4, 19, 18, 0, 0), DateTime(2025, 4, 19, 20, 0, 0)));
 		user8.addTask(Task("Football Analysis Thread", "Create social media thread analyzing Qəbələ's tactics in their last match.", MEDIUM, DateTime(2025, 4, 20, 21, 0, 0), DateTime(2025, 4, 20, 22, 0, 0)));
 		user8.addTask(Task("Morning Jog", "Jog 2km in the park to improve stamina and start day with energy.", LOW, DateTime(2025, 4, 21, 7, 0, 0), DateTime(2025, 4, 21, 7, 30, 0)));
 		user8.addTask(Task("Fix TrainCode Module", "Debug the seat reservation logic inside the custom-made railway system project.", CRITICAL, DateTime(2025, 4, 21, 18, 0, 0), DateTime(2025, 4, 21, 19, 30, 0)));
@@ -878,7 +821,6 @@ public:
 };
 
 
-#pragma region Display
 
 void hideCursor() {
 	cout << "\033[?25l"; // Hide cursor
@@ -950,6 +892,49 @@ User* login(UserManager& userManager) {
 	password = getHiddenInput();
 
 	return userManager.authenticateUser(username, password);
+}
+
+void prioritySetter(Task& task) {
+	int choice = 0;
+	const char* priorityNames[] = { "LOW", "MEDIUM", "HIGH", "CRITICAL", "URGENT" };
+
+
+	while (true)
+	{
+		system("cls||clear");
+		cout << "Use arrow keys to navigate and Enter to select." << endl;
+		cout << "Priority: ";
+
+		switch (choice) {
+		case 0: cout << "\033[0;32m"; break;
+		case 1: cout << "\033[0;33m"; break;
+		case 2: cout << "\033[0;31m"; break;
+		case 3: cout << "\033[1;31m"; break;
+		case 4: cout << "\033[0;35m"; break;
+		}
+
+		cout << priorityNames[choice] << "\033[0m" << endl;
+
+		int c = _getch();
+
+		switch (c) {
+		case KEY_LEFT:
+			if (choice > 0) choice--;
+			else choice = 4;
+			break;
+		case KEY_RIGHT:
+			if (choice < 4) choice++;
+			else choice = 0;
+			break;
+		case ENTER_KEY:
+			if (choice >= 0 && choice < 5) {
+				task.setPriority(static_cast<Priority>(choice));
+			}
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 
@@ -1260,6 +1245,79 @@ void displayTasks(User* user) {
 	}
 }
 
+static void addTaskToUser(User* user) {
+	string name, description;
+	DateTime start, end;
+
+	cout << "Enter the task's name: ";
+	getline(cin, name);
+
+	cout << "Enter the task's description: ";
+	getline(cin, description);
+
+	while (true) {
+		cout << "Enter start time (YYYY MM DD HH MM SS): ";
+		if (!(cin >> start.year >> start.month >> start.day >> start.hour >> start.minute >> start.second) || (!start.isValid())) {
+			cout << "Invalid input format! Please enter numbers only." << endl;
+			cin.clear(); // səhv bayrağını sıfırla
+			cin.ignore(); // bu sətirdəki qalan hər şeyi at
+			continue;
+		}
+		if (start.isValid()) {
+			break;
+		}
+		else if (start < DateTime()) {
+			cout << "Start time cannot be in the past! Please try again." << endl;
+		}
+		else if (start == DateTime()) {
+			cout << "Start time cannot be the same as current time! Please try again." << endl;
+		}
+		else if (start > DateTime()) {
+			break;
+		}
+		else {
+			cout << "Invalid start date! Please try again." << endl;
+		}
+	}
+
+	// END TIME
+	while (true) {
+		cout << "Enter end time (YYYY MM DD HH MM SS): ";
+		if (!(cin >> end.year >> end.month >> end.day >> end.hour >> end.minute >> end.second) || (!start.isValid())) {
+			cout << "Invalid input format! Please enter numbers only." << endl;
+			cin.clear();
+			cin.ignore();
+			continue;
+		}
+		if (!end.isValid()) {
+			cout << "Invalid end date! Please try again." << endl;
+		}
+		else if (end < start) {
+			cout << "End time cannot be earlier than start time! Please try again." << endl;
+		}
+		else if (end == start) {
+			cout << "End time cannot be the same as start time! Please try again." << endl;
+		}
+		else if (end > start) {
+			break;
+		}
+		else {
+			break;
+		}
+		cin.ignore(); // bu sətirdəki qalan hər şeyi at
+	}
+	cin.ignore(); // Yeni sətir simvolunu təmizlə
+
+	Task newTask(name, description, Priority::LOW, start, end); // Default prioritet olaraq LOW təyin edilir
+
+	prioritySetter(newTask);
+
+	user->addTask(newTask);
+	cout << "Task added successfully!" << endl;
+}
+
+
+
 
 void displayMenu(UserManager& userManager) {
 	int choice = 0;
@@ -1317,7 +1375,7 @@ void displayMenu(UserManager& userManager) {
 						case ENTER_KEY:
 							switch (userChoice) {
 							case 0:
-								user->addTask(Task::createUserInput());
+								addTaskToUser(user);
 								break;
 							case 1:
 								displayRemoving(user);

@@ -1,26 +1,23 @@
 ﻿  To-Do List.cpp
-C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(268,16): warning C4309: 'initializing': truncation of constant value
+C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(266,16): warning C4309: 'initializing': truncation of constant value
   (compiling source file 'To-Do%20List.cpp')
   
-C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(858,22): warning C4566: character represented by universal-character-name '\u0259' cannot be represented in the current code page (1254)
+C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(801,43): warning C4566: character represented by universal-character-name '\u0259' cannot be represented in the current code page (1254)
   (compiling source file 'To-Do%20List.cpp')
   
-C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(858,46): warning C4566: character represented by universal-character-name '\u0259' cannot be represented in the current code page (1254)
+C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(802,50): warning C4566: character represented by universal-character-name '\u0259' cannot be represented in the current code page (1254)
   (compiling source file 'To-Do%20List.cpp')
   
-C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(859,50): warning C4566: character represented by universal-character-name '\u0259' cannot be represented in the current code page (1254)
+C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(845,11): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'To-Do%20List.cpp')
   
-C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(903,11): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(1076,42): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'To-Do%20List.cpp')
   
-C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(1091,42): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(1167,42): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'To-Do%20List.cpp')
   
-C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(1182,42): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  (compiling source file 'To-Do%20List.cpp')
-  
-C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(1239,42): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(1224,42): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'To-Do%20List.cpp')
   
   To-Do List.vcxproj -> C:\Users\user\Desktop\C++\CPPLessons\x64\Debug\To-Do List.exe

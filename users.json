@@ -48,28 +48,6 @@
             },
             {
                 "completed": false,
-                "description": "Improve left foot control and acceleration with cone-based dribbling drills at the local stadium.",
-                "endTime": {
-                    "day": 17,
-                    "hour": 18,
-                    "minute": 45,
-                    "month": 4,
-                    "second": 0,
-                    "year": 2025
-                },
-                "name": "Work on Dribbling",
-                "priority": 1,
-                "startTime": {
-                    "day": 0,
-                    "hour": 0,
-                    "minute": 0,
-                    "month": 0,
-                    "second": 0,
-                    "year": 0
-                }
-            },
-            {
-                "completed": false,
                 "description": "Build a Python-based app to track matches using live football data APIs.",
                 "endTime": {
                     "day": 18,
@@ -81,6 +59,28 @@
                 },
                 "name": "Football Tracker App",
                 "priority": 2,
+                "startTime": {
+                    "day": 0,
+                    "hour": 0,
+                    "minute": 0,
+                    "month": 0,
+                    "second": 0,
+                    "year": 0
+                }
+            },
+            {
+                "completed": false,
+                "description": "Improve left foot control and acceleration with cone-based dribbling drills at the local stadium.",
+                "endTime": {
+                    "day": 17,
+                    "hour": 18,
+                    "minute": 45,
+                    "month": 4,
+                    "second": 0,
+                    "year": 2025
+                },
+                "name": "Work on Dribbling",
+                "priority": 1,
                 "startTime": {
                     "day": 0,
                     "hour": 0,

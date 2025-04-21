@@ -23,14 +23,7 @@ using namespace std;
 using namespace std::this_thread;
 using namespace std::chrono;
 
-
 #include "class.h"
-
-
-
-
-
-
 
 
 int main()
@@ -38,31 +31,10 @@ int main()
 
 	cout << boolalpha << endl;
 
-	//welcomeMessage();
-
-	//cout << "Welcome to the Task Management System!" << endl;
-	//showPercentageLoading(3);
-	//cout << "Loading completed!" << endl;
-
-	//showDotsLoading(3);
-	//cout << "Loading completed!" << endl;
-
-
-	//cout << "1. Klasik ilerleme çubuğu:\n";
-	//classicProgressBar(2);
-
-	//cout << "\n2. Renkli ilerleme çubuğu:\n";
-	//coloredProgressBar(2);
-
-	//cout << "\n9. Binary ilerleme çubuğu:\n";
-	//binaryProgressBar(2);
-
-	//
-
 	UserManager userManager("users.json");
 
 	displayMenu(userManager);
-	
+
 
 
 	return 0;
