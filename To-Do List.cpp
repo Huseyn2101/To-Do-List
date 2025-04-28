@@ -1,39 +1,36 @@
 ﻿#include <iostream>
-#include <cstring>
-#include <cassert>
-#include <ctime>
-#include <string>
-#include <limits> 
-#include <nlohmann/json.hpp> // JSON kitabxanasını əlavə etmək üçün
+#include <fstream>
 #include <vector>
+#include <string>
+#include <nlohmann/json.hpp>
+#include <chrono>
 #include <iomanip>
-#include <conio.h>
-#include <fstream> // Add this include to resolve incomplete type "std::ofstream" error
-#include <chrono>   
-#include <thread>   
-#include <windows.h>
+#include <thread>
+#include <functional>
 #include <algorithm>
-#include <cstdlib>
-#include <random>
-#include <stack>
+#include <conio.h>
+
 
 
 using json = nlohmann::json;
 using namespace std;
-using namespace std::this_thread;
-using namespace std::chrono;
+
 
 #include "class.h"
 
 
 int main()
 {
-
 	cout << boolalpha << endl;
 
-	UserManager userManager("users.json");
+	string databaseFile = "Source Files/database.json";
 
-	displayMenu(userManager);
+	UserManager userManager(databaseFile);
+
+	while (true)
+	{
+		displayMenu(userManager);
+	}
 
 
 

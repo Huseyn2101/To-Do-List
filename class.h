@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 
-
+// Defining the arrows for the console
 #define KEY_UP 72
 #define KEY_DOWN 80
 #define KEY_RIGHT 77
@@ -10,6 +10,7 @@
 #define ENTER_KEY 13
 #define SHIFT 16
 
+// Defining colors
 #define COLOR_RESET "\033[0m"
 #define COLOR_RED "\033[31m"
 #define COLOR_GREEN "\033[32m"
@@ -53,8 +54,7 @@ struct DateTime {
 	int minute;
 	int second;
 
-	DateTime()
-	{
+	DateTime() {
 		year = 1900;
 		month = 1;
 		day = 1;
@@ -63,11 +63,14 @@ struct DateTime {
 		second = 0;
 	}
 
-	DateTime(int y, int m, int d, int h, int min, int s) : year(y), month(m), day(d), hour(h), minute(min), second(s) {}
+	DateTime(int y, int m, int d, int h, int min, int s)
+		: year(y), month(m), day(d), hour(h), minute(min), second(s) {
+	}
 
-	DateTime(const tm& tm) : year(tm.tm_year + 1900), month(tm.tm_mon + 1), day(tm.tm_mday), hour(tm.tm_hour), minute(tm.tm_min), second(tm.tm_sec) {}
-
-
+	DateTime(const tm& tm)
+		: year(tm.tm_year + 1900), month(tm.tm_mon + 1), day(tm.tm_mday),
+		hour(tm.tm_hour), minute(tm.tm_min), second(tm.tm_sec) {
+	}
 
 	DateTime(const DateTime& other) {
 		year = other.year;
@@ -141,7 +144,7 @@ struct DateTime {
 			hour == other.hour && minute == other.minute && second == other.second;
 	}
 
-	friend std::ostream& operator<<(std::ostream& os, const DateTime& dt) {
+	friend ostream& operator<<(ostream& os, const DateTime& dt) {
 		os << (dt.day < 10 ? "0" : "") << dt.day << "."
 			<< (dt.month < 10 ? "0" : "") << dt.month << "."
 			<< dt.year << " "
@@ -176,31 +179,37 @@ struct DateTime {
 	}
 
 	void display() const {
-		cout << ' ' << (day < 10 ? "0" : "") << day << "."
+		cout << (day < 10 ? "0" : "") << day << "."
 			<< (month < 10 ? "0" : "") << month << "."
 			<< year << " "
 			<< (hour < 10 ? "0" : "") << hour << ":"
 			<< (minute < 10 ? "0" : "") << minute << ":"
-			<< (second < 10 ? "0" : "") << second << endl;
+			<< (second < 10 ? "0" : "") << second;
 	}
 
-	DateTime operator<<(DateTime& datetime) {
-		datetime.display();
-	}
-
-	// Convert task to JSON
+	// Convert to JSON
 	json toJson() const {
-		return json{ {"year", year}, {"month", month}, {"day", day},
-					{"hour", hour}, {"minute", minute}, {"second", second} };
+		return json{
+			{"year", year},
+			{"month", month},
+			{"day", day},
+			{"hour", hour},
+			{"minute", minute},
+			{"second", second}
+		};
 	}
 
-
-	// Convert JSON to task
+	// Convert from JSON
 	static DateTime fromJson(const json& j) {
-		return DateTime(j["year"], j["month"], j["day"],
-			j["hour"], j["minute"], j["second"]);
+		return DateTime(
+			j["year"],
+			j["month"],
+			j["day"],
+			j["hour"],
+			j["minute"],
+			j["second"]
+		);
 	}
-
 };
 
 
@@ -263,10 +272,9 @@ private:
 	DateTime _startTime;
 	DateTime _endTime;
 	bool _completed;
-	char symbol = 254;
+	char _symbol = 254;
 
 public:
-
 	Task() : _name(""), _description(""), _priority(Priority::LOW),
 		_startTime(), _endTime(), _completed(false) {
 	}
@@ -284,7 +292,7 @@ public:
 		_startTime(other._startTime),
 		_endTime(other._endTime),
 		_completed(other._completed),
-		symbol(other.symbol)
+		_symbol(other._symbol)
 	{
 	}
 
@@ -295,7 +303,7 @@ public:
 		_startTime(move(_startTime)),
 		_endTime(move(other._endTime)),
 		_completed(move(other._completed)),
-		symbol(move(other.symbol))
+		_symbol(move(other._symbol))
 	{
 	}
 
@@ -307,7 +315,7 @@ public:
 			_startTime = other._startTime;
 			_endTime = other._endTime;
 			_completed = other._completed;
-			symbol = other.symbol;
+			_symbol = other._symbol;
 		}
 		return *this;
 	}
@@ -320,7 +328,7 @@ public:
 			_startTime = std::move(other._startTime);
 			_endTime = std::move(other._endTime);
 			_completed = other._completed;
-			symbol = other.symbol;
+			_symbol = other._symbol;
 		}
 		return *this;
 	}
@@ -357,10 +365,10 @@ public:
 		cout << "End time: "; _endTime.display(); cout << endl;
 		cout << "Priority level: " << priorityToString(_priority) << endl;
 		if (_completed) {
-			cout << "Status: " << "\033[1;32m" << symbol << "\033[0m" << endl;
+			cout << "Status: " << "\033[1;32m" << _symbol << "\033[0m" << endl;
 		}
 		else {
-			cout << "Status: " << "\033[1;31m" << symbol << "\033[0m" << endl;
+			cout << "Status: " << "\033[1;31m" << _symbol << "\033[0m" << endl;
 		}
 		cout << "\v~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\v" << endl;
 	}
@@ -389,8 +397,6 @@ public:
 		return _completed;
 	}
 
-
-
 	static string priorityToString(Priority priority) {
 		switch (priority) {
 		case Priority::LOW: return "Low";
@@ -405,12 +411,12 @@ public:
 	// Convert task to JSON
 	json toJson() const {
 		return json{
-		{"name", _name},
-		{"description", _description},
-		{"priority", static_cast<int>(_priority)},
-		{"startTime", _startTime.toJson()},
-		{"endTime", _endTime.toJson()},
-		{"completed", _completed}
+			{"name", _name},
+			{"description", _description},
+			{"priority", static_cast<int>(_priority)},
+			{"startTime", _startTime.toJson()},
+			{"endTime", _endTime.toJson()},
+			{"completed", _completed}
 		};
 	}
 
@@ -426,13 +432,11 @@ public:
 
 		return task;
 	}
-
 };
 
 
 class User {
 private:
-	static const int Max = 100;
 	string _username;
 	string _password;
 	string _hashpassword;
@@ -442,26 +446,28 @@ private:
 		return to_string(hash<string>{}(password));
 	}
 
-
 public:
-
 	User() {};
 
 	User(const string& uname, const string& password)
 		: _username(uname), _hashpassword(hashPassword(password)) {
 	}
 
+	string getUsername() const {
+		return _username;
+	}
 
-	string getUsername()const { return _username; }
-
-	const vector<Task>& getTasks() const { return _tasks; }
+	const vector<Task>& getTasks() const {
+		return _tasks;
+	}
 
 	void addTask(const Task& task) {
 		_tasks.push_back(task);
 	}
 
-	vector<Task>& getTasks() { return _tasks; }
-
+	vector<Task>& getTasks() {
+		return _tasks;
+	}
 
 	void removeTask(const string text) {
 		auto it = find_if(_tasks.begin(), _tasks.end(), [&](const Task& task) {
@@ -488,7 +494,15 @@ public:
 	}
 
 	bool verifyPassword(const string& password) const {
-		return _hashpassword == hashPassword(password);
+		string hashedInput = hashPassword(password);
+		if (hashedInput == _hashpassword) {
+			cout << "Password verified successfully for user: " << _username << endl;
+			return true;
+		}
+		else {
+			cout << "Password verification failed for user: " << _username << endl;
+			return false;
+		}
 	}
 
 	void displayTasks() {
@@ -519,62 +533,92 @@ public:
 		}
 	}
 
-
 	json toJson() const {
-		json j;
-		j["username"] = _username;
-		j["password"] = _hashpassword;
-		j["tasks"] = json::array();
+		json tasksJson = json::array();
 		for (const auto& task : _tasks) {
-			j["tasks"].push_back(task.toJson());
+			tasksJson.push_back(task.toJson());
 		}
-		return j;
+		return json{ {"username", _username}, {"password", _password}, {"tasks", tasksJson} };
+
 	}
 
 	static User fromJson(const json& j) {
-		User user(j["username"], ""); // Şifrə JSON-dan yüklənəcək
-		user._hashpassword = j["password"];
+		User user(j["username"], j["password"]);
 		for (const auto& taskJson : j["tasks"]) {
 			user._tasks.push_back(Task::fromJson(taskJson));
 		}
 		return user;
 	}
-
 };
+
+
+
+class JsonHandler {
+private:
+	string _filepath;
+
+public:
+
+	explicit JsonHandler(const string& filepath) : _filepath(filepath) {}
+
+	std::vector<User> loadUsersFromFile() const {
+		vector<User> users;
+		ifstream file(_filepath);
+
+		if (!file.is_open()) {
+			cerr << "Error opening file: " << _filepath << endl;
+			return users;
+		}
+
+		try {
+			json jsonData;
+			file >> jsonData;
+			for (const auto& userJson : jsonData) {
+				users.push_back(User::fromJson(userJson));
+			}
+		}
+		catch (const std::exception& e) {
+			cerr << "Error parsing JSON: " << e.what() << endl;
+		}
+
+		return users;
+	}
+
+	void saveUsersToFile(const std::vector<User>& users) {
+		std::ofstream file(_filepath);
+
+		if (!file.is_open()) {
+			std::cerr << "Error opening file for writing: " << _filepath << std::endl;
+			return;
+		}
+
+		json jsonData = json::array();
+		for (const auto& user : users) {
+			jsonData.push_back(user.toJson());
+		}
+
+		file << jsonData.dump(4);
+	}
+};
+
 
 
 class UserManager {
 private:
 	vector<User> _users;
-	vector<pair<string, LoginAttempt>> loginAttempts;
-	string _datafile;  // json filename
-
-	LoginAttempt& getLoginAttempt(const string& username) {
-		for (auto& attempt : loginAttempts)
-		{
-			if (attempt.first == username) {
-				return attempt.second;
-			}
-		}
-
-		loginAttempts.emplace_back(username, LoginAttempt());
-		return loginAttempts.back().second;
-	}
+	JsonHandler _jsonHandler;
 
 public:
-
-	UserManager(const string& datafile) : _datafile(datafile) {
-		loadUsersFromFile();
+	UserManager(const string& datafile) : _jsonHandler(datafile) {
+		_users = _jsonHandler.loadUsersFromFile();
 	}
-
 
 	~UserManager() {
 		saveUsersToFile();
 	}
 
 	void addUser(const User& user) {
-		for (const auto& u : _users)
-		{
+		for (const auto& u : _users) {
 			if (u.getUsername() == user.getUsername()) {
 				cout << "User already exists!" << endl;
 				return;
@@ -585,241 +629,27 @@ public:
 		cout << "User added successfully!" << endl;
 	}
 
-	bool addTaskForUser(const string& username, const Task& task) {
-		for (auto& user : _users)
-		{
-			if (user.getUsername() == username) {
-				user.addTask(task);
-				saveUsersToFile();
-				return true;
-			}
-		}
-		cout << "User not found!" << endl;
-		return false;
-	}
-
-
-	bool removeTaskForUser(const string& username, size_t index) {
-		for (auto& user : _users)
-		{
-			if (user.getUsername() == username) {
-				user.removeTask(index);
-				saveUsersToFile();
-				return true;
-			}
-		}
-		cout << "User not found!" << endl;
-		return false;
-	}
-
-
-	bool updateTaskForUser(const string& username, size_t index, const Task& task) {
-		for (auto& user : _users)
-		{
-			if (user.getUsername() == username) {
-				user.updateTask(index, task);
-				saveUsersToFile();
-				return true;
-			}
-		}
-		cout << "User not found!" << endl;
-		return false;
-	}
-
-	User* authenticateUser(const string& username, const string& password) {
-		LoginAttempt& attempt = getLoginAttempt(username);
-
-		if (attempt.isBlocked()) {
-			cout << "Your account is temporarily blocked. Please try again later." << endl;
-			return nullptr;
-		}
-
-		for (auto& user : _users)
-		{
-			if (user.getUsername() == username) {
-				if (user.verifyPassword(password)) {
-					cout << "Login successfully!" << endl;
-					attempt.resetAttempts();
-					return &user;
-				}
-				else {
-					attempt.registerFailure();
-					if (attempt.isBlocked()) {
-						cout << "Too many failed attempts. Your account is blocked for 5 minutes." << endl;
-					}
-					return nullptr;
-				}
-			}
-		}
-
-		cout << "Invalid username or password. Please try again!" << endl;
-		attempt.registerFailure();
-		if (attempt.isBlocked()) {
-			cout << "Too many failed attempts. Your account is blocked for 5 minutes!" << endl;
-		}
-		return nullptr;
+	void loadUsersFromFile() {
+		_users = _jsonHandler.loadUsersFromFile();
 	}
 
 	void saveUsersToFile() {
-		try {
-			json j = json::array();
-			for (const auto& user : _users) {
-				j.push_back(user.toJson());
-			}
-			ofstream file(_datafile);
-			if (!file.is_open()) {
-				throw runtime_error("Could not open file for writing." + _datafile);
-				return;
-			}
-
-			file << setw(4) << j << endl;
-			file.close();
-
-			cout << "Data successfully saved to " << _datafile << endl;
-		}
-		catch (const exception& e) {
-			cout << "Error saving to file: " << e.what() << endl;
-		}
-		catch (...) {
-			cout << "Unknown error occurred while saving to file." << endl;
-		}
+		_jsonHandler.saveUsersToFile(_users);
 	}
 
-	void loadUsersFromFile() {
-		try {
-			ifstream file(_datafile);
-			if (!file.is_open()) {
-				cout << "No existing data file found. Generating initial data..." << endl;
-				generateFakeData(_users);
-				return;
-			}
-
-			json j;
-			file >> j;
-
-			_users.clear();
-
-			for (const auto& userJson : j) {
-				_users.push_back(User::fromJson(userJson));
-			}
-
-			cout << "Successfully loaded " << _users.size() << " users from file." << endl;
-		}
-		catch (const json::exception& e) {
-			cerr << "Json parsinng error: " << e.what() << endl;
-			cout << "Generating new data due to corrupted file..." << endl;
-			generateFakeData(_users);
-		}
-		catch (const exception& e) {
-			cerr << "Error loading from file: " << e.what() << endl;
-			cout << "Generating new data due to corrupted file..." << endl;
-			generateFakeData(_users);
-		}
-		catch (...) {
-			cerr << "Unknown error occurred while loading from file." << endl;
-		}
+	const vector<User>& getUsers() const {
+		return _users;
 	}
 
-
-	void generateFakeData(vector<User>& users) {
-		User user1("nhu55uxn", "g7mkz2tu"),
-			user2("ako_ismahilov", "h3lreq9p"),
-			user3("h_haciyefh", "tb5wcz1k"),
-			user4("404nilfound", "qs8jx4mv"),
-			user5("axmedli_cs", "m9zuey2t"),
-			user6("gulchin_snoozer", "f2rkl7nb"),
-			user7("vistoria_vito", "d6whqe3n"),
-			user8("tamerlan_trainMan", "u1jvmc9x");
-
-		// Tasks for user1 - Huseyn
-		user1.addTask(Task("Watch El Clasico Replay", "Re-watch Real Madrid's thrilling win and analyze their offensive and defensive transitions thoroughly.", HIGH, DateTime(2025, 4, 16, 21, 0, 0), DateTime(2025, 4, 16, 23, 0, 0)));
-		user1.addTask(Task("Read Quran Peacefully", "Focus on reciting Surah Al-Baqarah and reflecting on the meaning of verses with tafsir.", HIGH, DateTime(2025, 4, 16, 23, 30, 0), DateTime(2025, 4, 17, 0, 30, 0)));
-		user1.addTask(Task("Work on Dribbling", "Improve left foot control and acceleration with cone-based dribbling drills at the local stadium.", MEDIUM, DateTime(2025, 4, 17, 18, 0, 0), DateTime(2025, 4, 17, 18, 45, 0)));
-		user1.addTask(Task("Football Tracker App", "Build a Python-based app to track matches using live football data APIs.", HIGH, DateTime(2025, 4, 18, 20, 0, 0), DateTime(2025, 4, 18, 22, 0, 0)));
-		user1.addTask(Task("Family Dinner", "Sit down with family to eat and talk about the week’s positive moments and future plans.", LOW, DateTime(2025, 4, 19, 19, 0, 0), DateTime(2025, 4, 19, 21, 0, 0)));
-		user1.addTask(Task("Backend Login Fix", "Review backend login code and solve token expiration bugs and redirect loops.", CRITICAL, DateTime(2025, 4, 20, 14, 0, 0), DateTime(2025, 4, 20, 15, 30, 0)));
-
-		// Tasks for user2 - Akif
-		user2.addTask(Task("Valorant Ranked Night", "Play competitive matches with friends and try to reach Platinum rank before reset.", HIGH, DateTime(2025, 4, 16, 22, 0, 0), DateTime(2025, 4, 17, 1, 0, 0)));
-		user2.addTask(Task("Oversleep Plan", "Set an alarm but ignore it to extend sleep, skipping first lectures.", LOW, DateTime(2025, 4, 17, 10, 0, 0), DateTime(2025, 4, 17, 12, 0, 0)));
-		user2.addTask(Task("Flu Recovery", "Stay in bed, drink herbal tea and monitor temperature and symptoms closely.", MEDIUM, DateTime(2025, 4, 18, 9, 0, 0), DateTime(2025, 4, 18, 9, 30, 0)));
-		user2.addTask(Task("Fix RPG Inventory Bug", "Debug an item stacking issue in RPG code that breaks the player inventory.", HIGH, DateTime(2025, 4, 19, 20, 0, 0), DateTime(2025, 4, 19, 21, 30, 0)));
-		user2.addTask(Task("Streamer Tactics Review", "Analyze high-rank streamer tactics for better positioning and map control.", LOW, DateTime(2025, 4, 20, 23, 0, 0), DateTime(2025, 4, 21, 1, 0, 0)));
-		user2.addTask(Task("Optimize Game Engine", "Improve movement and hitbox collision handling for smoother in-game physics.", HIGH, DateTime(2025, 4, 21, 15, 0, 0), DateTime(2025, 4, 21, 17, 0, 0)));
-
-		// Tasks for user3 - Abulfaz
-		user3.addTask(Task("Niva Repair Guide", "Read forums and watch mechanic tutorials on engine maintenance for Niva cars.", MEDIUM, DateTime(2025, 4, 17, 13, 0, 0), DateTime(2025, 4, 17, 14, 0, 0)));
-		user3.addTask(Task("Recharge Nap", "Take a power nap in the late afternoon to boost energy for coding sessions.", LOW, DateTime(2025, 4, 17, 17, 0, 0), DateTime(2025, 4, 17, 19, 0, 0)));
-		user3.addTask(Task("Launch Portfolio Website", "Set up a basic portfolio with sections for resume, contact, and projects using HTML/CSS.", HIGH, DateTime(2025, 4, 18, 10, 0, 0), DateTime(2025, 4, 18, 13, 0, 0)));
-		user3.addTask(Task("C++ Vector Mastery", "Revisit custom vector implementation and test various edge cases and memory usage.", HIGH, DateTime(2025, 4, 19, 15, 0, 0), DateTime(2025, 4, 19, 16, 30, 0)));
-		user3.addTask(Task("Desk Cleanup", "Organize the desk, sort notes and clean cables for better focus.", LOW, DateTime(2025, 4, 20, 12, 0, 0), DateTime(2025, 4, 20, 12, 45, 0)));
-		user3.addTask(Task("Fix LinkedList Error", "Debug and resolve segmentation fault caused by improper node insertion.", CRITICAL, DateTime(2025, 4, 21, 14, 0, 0), DateTime(2025, 4, 21, 16, 0, 0)));
-
-		// Tasks for user4 - Nilufar
-		user4.addTask(Task("Study Azerbaijani", "Learn grammar rules and practice pronunciation from the A1 language guide.", MEDIUM, DateTime(2025, 4, 17, 10, 0, 0), DateTime(2025, 4, 17, 11, 30, 0)));
-		user4.addTask(Task("iPad Coding Challenge", "Code a to-do list app in Swift using UIKit and test it on your iPad.", HIGH, DateTime(2025, 4, 17, 14, 0, 0), DateTime(2025, 4, 17, 16, 0, 0)));
-		user4.addTask(Task("Russian Speaking Practice", "Join a conversation club to improve fluency by speaking with native Russian speakers.", HIGH, DateTime(2025, 4, 18, 18, 0, 0), DateTime(2025, 4, 18, 18, 45, 0)));
-		user4.addTask(Task("Language Homework", "Complete exercises on noun cases and verbs of motion for your language course.", MEDIUM, DateTime(2025, 4, 19, 10, 0, 0), DateTime(2025, 4, 19, 12, 0, 0)));
-		user4.addTask(Task("Install IDE", "Download and configure a coding environment app on your iPad like Playgrounds or Juno.", LOW, DateTime(2025, 4, 20, 19, 0, 0), DateTime(2025, 4, 20, 19, 30, 0)));
-		user4.addTask(Task("Flashcard Review", "Use Anki to revise vocabulary learned during the week and track spaced repetition progress.", MEDIUM, DateTime(2025, 4, 21, 22, 0, 0), DateTime(2025, 4, 21, 22, 30, 0)));
-
-		// Tasks for user5 - Murad
-		user5.addTask(Task("CS Map Practice", "Practice grenade throws and angles on Dust2 map.", MEDIUM, DateTime(2025, 4, 17, 13, 0, 0), DateTime(2025, 4, 17, 14, 30, 0)));
-		user5.addTask(Task("Host LAN Party", "Organize a CS LAN party with friends and ensure all configs are synced.", HIGH, DateTime(2025, 4, 18, 19, 0, 0), DateTime(2025, 4, 18, 23, 30, 0)));
-		user5.addTask(Task("Demo Review Session", "Review match demos to spot reaction time mistakes and missed headshots.", HIGH, DateTime(2025, 4, 19, 15, 0, 0), DateTime(2025, 4, 19, 17, 0, 0)));
-		user5.addTask(Task("Crosshair Tuning", "Test multiple crosshair styles and dynamic/static settings for precision.", LOW, DateTime(2025, 4, 20, 20, 0, 0), DateTime(2025, 4, 20, 20, 30, 0)));
-		user5.addTask(Task("Update Gaming Rig", "Install latest GPU drivers and remove dust from fans.", MEDIUM, DateTime(2025, 4, 21, 11, 0, 0), DateTime(2025, 4, 21, 12, 0, 0)));
-		user5.addTask(Task("CS Plugin Debug", "Fix plugin bug affecting killfeed display in private servers.", CRITICAL, DateTime(2025, 4, 21, 18, 0, 0), DateTime(2025, 4, 21, 19, 30, 0)));
-
-		// Tasks for user5 - Murad
-		user5.addTask(Task("CS Practice Aim", "Complete 60 minutes of aim training using Aim Lab, focusing on reflex speed and precision.", HIGH, DateTime(2025, 4, 17, 10, 0, 0), DateTime(2025, 4, 17, 11, 0, 0)));
-		user5.addTask(Task("Gym Strength Routine", "Follow a strength-building program with squats, bench press, and deadlifts for norm preparation.", MEDIUM, DateTime(2025, 4, 17, 17, 0, 0), DateTime(2025, 4, 17, 18, 30, 0)));
-		user5.addTask(Task("Colloquium Notes Review", "Review past colloquium notes to prepare for upcoming evaluations.", HIGH, DateTime(2025, 4, 18, 14, 0, 0), DateTime(2025, 4, 18, 15, 30, 0)));
-		user5.addTask(Task("Mock Test", "Take a timed practice test in exam format to identify weak points in subject comprehension.", HIGH, DateTime(2025, 4, 19, 9, 0, 0), DateTime(2025, 4, 19, 10, 30, 0)));
-		user5.addTask(Task("CS Update Patch Read", "Read patch notes from Counter Strike’s latest update to understand gameplay changes.", LOW, DateTime(2025, 4, 20, 20, 0, 0), DateTime(2025, 4, 20, 20, 30, 0)));
-		user5.addTask(Task("Nutrition Meal Prep", "Prepare meals for the week that enhance energy and focus during training.", MEDIUM, DateTime(2025, 4, 21, 12, 0, 0), DateTime(2025, 4, 21, 13, 0, 0)));
-
-		// Tasks for user6 - Gulchin
-		user6.addTask(Task("Set Alarm Challenge", "Try waking up to first alarm without snoozing; record experience in journal.", LOW, DateTime(2025, 4, 17, 7, 0, 0), DateTime(2025, 4, 17, 7, 30, 0)));
-		user6.addTask(Task("Class Punctuality Goal", "Attempt to attend all classes on time for one week and reflect on performance.", MEDIUM, DateTime(2025, 4, 17, 9, 0, 0), DateTime(2025, 4, 17, 10, 0, 0)));
-		user6.addTask(Task("Language Clarity Exercise", "Practice speaking slower and more clearly in Azerbaijani with a partner.", HIGH, DateTime(2025, 4, 18, 11, 0, 0), DateTime(2025, 4, 18, 11, 30, 0)));
-		user6.addTask(Task("Motivational Video Session", "Watch 2 motivational videos on self-discipline and record key points.", LOW, DateTime(2025, 4, 19, 15, 0, 0), DateTime(2025, 4, 19, 15, 30, 0)));
-		user6.addTask(Task("Wake-Up Routine Plan", "Design and implement a consistent morning routine to improve energy.", MEDIUM, DateTime(2025, 4, 20, 8, 0, 0), DateTime(2025, 4, 20, 8, 45, 0)));
-		user6.addTask(Task("Voice Recorder Practice", "Use voice recording to evaluate speech clarity and pace.", MEDIUM, DateTime(2025, 4, 21, 17, 0, 0), DateTime(2025, 4, 21, 17, 45, 0)));
-
-		// Tasks for user7 - Malik
-		user7.addTask(Task("Vito Engine Check", "Inspect Mercedes Vito engine and fluid levels before trip to ensure safety.", MEDIUM, DateTime(2025, 4, 17, 10, 0, 0), DateTime(2025, 4, 17, 11, 0, 0)));
-		user7.addTask(Task("Community Assistance", "Support neighbors with loading furniture and appliances into moving trucks.", HIGH, DateTime(2025, 4, 17, 13, 0, 0), DateTime(2025, 4, 17, 14, 0, 0)));
-		user7.addTask(Task("Police Coordination Call", "Coordinate with traffic police for temporary road use approval.", MEDIUM, DateTime(2025, 4, 18, 12, 0, 0), DateTime(2025, 4, 18, 12, 30, 0)));
-		user7.addTask(Task("Interior Van Clean", "Deep clean vehicle cabin to improve comfort and hygiene for clients.", LOW, DateTime(2025, 4, 19, 16, 0, 0), DateTime(2025, 4, 19, 17, 0, 0)));
-		user7.addTask(Task("Transport Schedule Plan", "Create weekly transport schedule and delivery optimization for upcoming requests.", HIGH, DateTime(2025, 4, 20, 19, 0, 0), DateTime(2025, 4, 20, 20, 30, 0)));
-		user7.addTask(Task("Review Customer Feedback", "Check feedback from clients and prepare improvement action points.", MEDIUM, DateTime(2025, 4, 21, 15, 0, 0), DateTime(2025, 4, 21, 15, 45, 0)));
-
-		// Tasks for user8 - Tamerlan
-		user8.addTask(Task("Train Ride Reflection", "Write a short piece about experience living briefly on a train during summer.", LOW, DateTime(2025, 4, 17, 20, 0, 0), DateTime(2025, 4, 17, 20, 45, 0)));
-		user8.addTask(Task("Skip Class Strategy", "Re-evaluate academic priorities and plan how to improve attendance moving forward.", MEDIUM, DateTime(2025, 4, 18, 10, 0, 0), DateTime(2025, 4, 18, 11, 0, 0)));
-		user8.addTask(Task("Qabala Game Night", "Attend Qəbələ FC match with friends and enjoy stadium atmosphere.", HIGH, DateTime(2025, 4, 19, 18, 0, 0), DateTime(2025, 4, 19, 20, 0, 0)));
-		user8.addTask(Task("Football Analysis Thread", "Create social media thread analyzing Qəbələ's tactics in their last match.", MEDIUM, DateTime(2025, 4, 20, 21, 0, 0), DateTime(2025, 4, 20, 22, 0, 0)));
-		user8.addTask(Task("Morning Jog", "Jog 2km in the park to improve stamina and start day with energy.", LOW, DateTime(2025, 4, 21, 7, 0, 0), DateTime(2025, 4, 21, 7, 30, 0)));
-		user8.addTask(Task("Fix TrainCode Module", "Debug the seat reservation logic inside the custom-made railway system project.", CRITICAL, DateTime(2025, 4, 21, 18, 0, 0), DateTime(2025, 4, 21, 19, 30, 0)));
-
-
-
-		_users.push_back(user1);
-		_users.push_back(user2);
-		_users.push_back(user3);
-		_users.push_back(user4);
-		_users.push_back(user5);
-		_users.push_back(user6);
-		_users.push_back(user7);
-		_users.push_back(user8);
-
-
-		saveUsersToFile();
+	User* findUser(const string& username, const string& password) {
+		for (auto& user : _users) {
+			if (user.getUsername() == username && user.verifyPassword(password)) {
+				return &user;
+			}
+		}
+		return nullptr;
 	}
-
 };
-
 
 
 void hideCursor() {
@@ -836,12 +666,12 @@ void clearLine() {
 
 void classicProgressBar(int duration = 3) {
 	hideCursor();
-	auto start = high_resolution_clock::now();
-	auto end = start + seconds(duration);
+	auto start = chrono::high_resolution_clock::now();
+	auto end = start + chrono::seconds(duration);
 
 	int barWidth = 50;
-	while (high_resolution_clock::now() < end) {
-		float progress = 1.0f - duration_cast<milliseconds>(end - high_resolution_clock::now()).count() / (duration * 1000.0f);
+	while (chrono::high_resolution_clock::now() < end) {
+		float progress = 1.0f - chrono::duration_cast<chrono::milliseconds>(end - chrono::high_resolution_clock::now()).count() / (duration * 1000.0f);
 		int pos = barWidth * progress;
 
 		cout << "\r[";
@@ -852,7 +682,7 @@ void classicProgressBar(int duration = 3) {
 		}
 		cout << "] " << int(progress * 100.0) << "%";
 		cout.flush();
-		sleep_for(milliseconds(50));
+		this_thread::sleep_for(chrono::milliseconds(50));
 	}
 	clearLine();
 	showCursor();
@@ -891,7 +721,15 @@ User* login(UserManager& userManager) {
 	cout << "Enter password: ";
 	password = getHiddenInput();
 
-	return userManager.authenticateUser(username, password);
+	User* user = userManager.findUser(username, password);
+	if (user) {
+		cout << "Login successful! Welcome, " << user->getUsername() << "!" << endl;
+		return user;
+	}
+	else {
+		cout << "Invalid username or password. Please try again." << endl;
+		return nullptr;
+	}
 }
 
 void prioritySetter(Task& task) {
@@ -929,6 +767,7 @@ void prioritySetter(Task& task) {
 		case ENTER_KEY:
 			if (choice >= 0 && choice < 5) {
 				task.setPriority(static_cast<Priority>(choice));
+				return;
 			}
 			break;
 		default:
@@ -1005,7 +844,7 @@ void showDotsLoading(int durationSeconds = 3) {
 	auto start = std::chrono::steady_clock::now();
 	auto end = start + std::chrono::seconds(durationSeconds);
 
-	std::cout << "Loading";
+	std::cout << "\t\t\tLoading";
 
 	while (std::chrono::steady_clock::now() < end) {
 		for (int i = 0; i < 3; i++) {
@@ -1044,84 +883,95 @@ void showDotsExiting(int durationSeconds = 3) {
 
 void displayUpdating(User* user) {
 	int choice = 0;
-	while (true)
-	{
+	while (true) {
 		system("cls||clear");
 		cout << "Use arrow keys to navigate and Enter to select." << endl;
-		if (user->getTasks().empty())
-		{
+
+		if (user->getTasks().empty()) {
 			cout << "No tasks available." << endl;
 			break;
 		}
-		else {
-			int i = 0;
-			for (const auto& task : user->getTasks())
-			{
-				if (choice == i)
-				{
-					cout << COLOR_MAGENTA << i + 1 << ". " << task.getName() << endl;
-				}
-				else
-				{
-					cout << i + 1 << ". " << task.getName() << endl;
-				}
-				++i;
+
+		int i = 0;
+		for (const auto& task : user->getTasks()) {
+			if (choice == i) {
+				cout << COLOR_MAGENTA << i + 1 << ". " << task.getName() << COLOR_RESET << endl;
 			}
+			else {
+				cout << i + 1 << ". " << task.getName() << endl;
+			}
+			++i;
 		}
 
 		int c = _getch();
-		switch (_getch()) {
+		switch (c) {
 		case KEY_UP:
-			if (choice > 0) choice--;
-			else choice = user->getTasks().size() - 1;
+			choice = (choice > 0) ? choice-- : user->getTasks().size() - 1;
 			break;
 		case KEY_DOWN:
-			if (choice < user->getTasks().size() - 1) choice++;
-			else choice = 0;
+			choice = (choice < user->getTasks().size() - 1) ? choice++ : 0;
 			break;
 		case ENTER_KEY:
 			if (!user->getTasks().empty()) {
-				cout << "Selected task: " << user->getTasks()[choice].getName() << endl;
-				user->getTasks()[choice].display();
-				cout << "Enter new task name(current: " << user->getTasks()[choice].getName() << "): ";
+				Task& selectedTask = user->getTasks()[choice];
+				system("cls||clear");
+				cout << "Selected task: " << selectedTask.getName() << endl;
+
 				string newName;
+				cout << "Enter new task name (current: " << selectedTask.getName() << "): ";
+				cin.ignore();
 				getline(cin, newName);
 				if (!newName.empty()) {
-					user->getTasks()[choice].setName(newName);
-
+					selectedTask.setName(newName);
 				}
-				cout << "Enter new task description(current: " << user->getTasks()[choice].getDescription() << "): ";
+
 				string newDescription;
+				cout << "Enter new task description (current: " << selectedTask.getDescription() << "): ";
 				getline(cin, newDescription);
 				if (!newDescription.empty()) {
-					user->getTasks()[choice].setDescription(newDescription);
+					selectedTask.setDescription(newDescription);
 				}
-				cout << "Enter new task priority(current: " << user->getTasks()[choice].getPriority() << "): ";
+
 				int newPriority;
-				cin >> newPriority;
+				cout << "Enter new task priority (0-LOW, 1-MEDIUM, 2-HIGH, 3-CRITICAL, 4-URGENT): ";
+				while (!(cin >> newPriority) || newPriority < 0 || newPriority > 4) {
+					cout << "Invalid priority! Please enter a value between 0 and 4." << endl;
+					cin.clear();
+					cin.ignore(INT_MAX, '\n');
+				}
+				selectedTask.setPriority(static_cast<Priority>(newPriority));
 				cin.ignore();
-				if (newPriority >= 0 && newPriority <= 4) {
-					user->getTasks()[choice].setPriority(static_cast<Priority>(newPriority));
-				}
 
-				cout << "Enter new task start date(current: " << user->getTasks()[choice].getStartTime() << "): ";
 				DateTime newStartDate;
-				cin >> newStartDate.year >> newStartDate.month >> newStartDate.day >> newStartDate.hour >> newStartDate.minute >> newStartDate.second;
-
-				if (newStartDate.isValid()) {
-					user->getTasks()[choice].setStartTime(newStartDate);
+				cout << "Enter new task start date (YYYY MM DD HH MM SS): ";
+				while (!(cin >> newStartDate.year >> newStartDate.month >> newStartDate.day
+					>> newStartDate.hour >> newStartDate.minute >> newStartDate.second) ||
+					!newStartDate.isValid()) {
+					cout << "Invalid start date! Please enter in format YYYY MM DD HH MM SS." << endl;
+					cin.clear();
+					cin.ignore(INT_MAX, '\n');
 				}
+				selectedTask.setStartTime(newStartDate);
 
-				cout << "Enter new task end date(current: " << user->getTasks()[choice].getEndTime() << "): ";
 				DateTime newEndDate;
-				cin >> newEndDate.year >> newEndDate.month >> newEndDate.day >> newEndDate.hour >> newEndDate.minute >> newEndDate.second;
-				if (newEndDate.isValid()) {
-					user->getTasks()[choice].setEndTime(newEndDate);
+				cout << "Enter new task end date (YYYY MM DD HH MM SS): ";
+				while (!(cin >> newEndDate.year >> newEndDate.month >> newEndDate.day
+					>> newEndDate.hour >> newEndDate.minute >> newEndDate.second) ||
+					!newEndDate.isValid() || newEndDate < newStartDate) {
+					cout << "Invalid end date! End date must be valid and later than the start date." << endl;
+					cin.clear();
+					cin.ignore(INT_MAX, '\n');
 				}
+				selectedTask.setEndTime(newEndDate);
 
-				cout << "Enter new task status(current: " << user->getTasks()[choice].getStatus() << "): ";
 				int newStatus;
-				cin >> newStatus;
+				cout << "Enter new task status (0-Not Completed, 1-Completed): ";
+				while (!(cin >> newStatus) || (newStatus != 0 && newStatus != 1)) {
+					cout << "Invalid status! Please enter 0 (Not Completed) or 1 (Completed)." << endl;
+					cin.clear();
+					cin.ignore(INT_MAX, '\n');
+				}
+				selectedTask.setStatus(newStatus);
 				cin.ignore();
 
 				cout << "Task updated successfully!" << endl;
@@ -1129,53 +979,53 @@ void displayUpdating(User* user) {
 				(void)_getch();
 			}
 			break;
+		case ESC:
+			return;
+		default:
+			break;
 		}
 	}
 }
 
 void displayRemoving(User* user) {
 	int choice = 0;
-	while (true)
-	{
+	while (true) {
 		system("cls||clear");
-		cout << "Use arrow keys to navigate and Enter to select." << endl;
-		if (user->getTasks().empty())
-		{
+		cout << "Use arrow keys to navigate and Enter to remove a task." << endl;
+
+		if (user->getTasks().empty()) {
 			cout << "No tasks available." << endl;
+			cout << "Press any key to return to the previous menu..." << endl;
+			(void)_getch();
 			break;
 		}
-		else {
-			int i = 0;
-			for (const auto& task : user->getTasks())
-			{
-				if (choice == i)
-				{
-					cout << COLOR_MAGENTA << i + 1 << ". " << task.getName() << COLOR_RESET << endl;
-				}
-				else
-				{
-					cout << i + 1 << ". " << task.getName() << endl;
-				}
-				++i;
+
+		int i = 0;
+		for (const auto& task : user->getTasks()) {
+			if (choice == i) {
+				cout << COLOR_MAGENTA << i + 1 << ". " << task.getName() << COLOR_RESET << endl;
 			}
-			cout << COLOR_RESET << endl;
+			else {
+				cout << i + 1 << ". " << task.getName() << endl;
+			}
+			++i;
 		}
+		cout << COLOR_RESET << endl;
+
 		int c = _getch();
-		switch (_getch()) {
+		switch (c) {
 		case KEY_UP:
-			if (choice > 0) choice--;
-			else choice = user->getTasks().size() - 1;
+			choice = (choice > 0) ? choice - 1 : user->getTasks().size() - 1;
 			break;
 		case KEY_DOWN:
-			if (choice < user->getTasks().size() - 1) choice++;
-			else choice = 0;
+			choice = (choice < user->getTasks().size() - 1) ? choice + 1 : 0;
 			break;
 		case ENTER_KEY:
 			if (!user->getTasks().empty()) {
-				cout << "Selected task: " << user->getTasks()[choice].getName() << endl;
+				Task removedTask = user->getTasks()[choice];
 				user->removeTask(choice);
-				cout << "Task removed successfully!" << endl;
-				cout << "Press any key to continue...";
+				cout << "Task \"" << removedTask.getName() << "\" removed successfully!" << endl;
+				cout << "Press any key to continue..." << endl;
 				(void)_getch();
 			}
 			break;
@@ -1184,6 +1034,8 @@ void displayRemoving(User* user) {
 			return;
 		default:
 			cout << "Invalid key pressed!" << endl;
+			cout << "Press any key to continue..." << endl;
+			(void)_getch();
 			break;
 		}
 	}
@@ -1191,47 +1043,44 @@ void displayRemoving(User* user) {
 
 void displayTasks(User* user) {
 	int choice = 0;
-	while (true)
-	{
+	while (true) {
 		system("cls||clear");
+
 		cout << "Use arrow keys to navigate and Enter to select." << endl;
-		if (user->getTasks().empty())
-		{
+
+		if (user->getTasks().empty()) {
 			cout << "No tasks available." << endl;
+			cout << "Press any key to return to the previous menu..." << endl;
+			(void)_getch();
 			break;
-		}
-		else {
-			int i = 0;
-			for (const auto& task : user->getTasks())
-			{
-				if (choice == i)
-				{
-					cout << COLOR_MAGENTA << i + 1 << ". " << task.getName() << endl;
-				}
-				else
-				{
-					cout << i + 1 << ". " << task.getName() << endl;
-				}
-				++i;
-			}
-			cout << COLOR_RESET << endl;
 		}
 
+		int i = 0;
+		for (const auto& task : user->getTasks()) {
+			if (choice == i) {
+				cout << COLOR_MAGENTA << i + 1 << ". " << task.getName() << COLOR_RESET << endl;
+			}
+			else {
+				cout << i + 1 << ". " << task.getName() << endl;
+			}
+			++i;
+		}
+		cout << COLOR_RESET << endl;
+
 		int c = _getch();
-		switch (_getch()) {
+		switch (c) {
 		case KEY_UP:
-			if (choice > 0) choice--;
-			else choice = user->getTasks().size() - 1;
+			choice = (choice > 0) ? choice - 1 : user->getTasks().size() - 1;
 			break;
 		case KEY_DOWN:
-			if (choice < user->getTasks().size() - 1) choice++;
-			else choice = 0;
+			choice = (choice < user->getTasks().size() - 1) ? choice + 1 : 0;
 			break;
 		case ENTER_KEY:
 			if (!user->getTasks().empty()) {
-				cout << "Selected task: " << user->getTasks()[choice].getName() << endl;
-				user->getTasks()[choice].display();
-				cout << "Press any key to continue...";
+				Task& selectedTask = user->getTasks()[choice];
+				cout << "Selected task: " << selectedTask.getName() << endl;
+				selectedTask.display();
+				cout << "Press any key to continue..." << endl;
 				(void)_getch();
 			}
 			break;
@@ -1239,7 +1088,6 @@ void displayTasks(User* user) {
 			cout << "Exiting task display..." << endl;
 			return;
 		default:
-			cout << "Invalid key pressed!" << endl;
 			break;
 		}
 	}
@@ -1266,11 +1114,9 @@ static void addTaskToUser(User* user) {
 		if (start.isValid()) {
 			break;
 		}
-		else if (start < DateTime()) {
+		if (start < DateTime()) {
 			cout << "Start time cannot be in the past! Please try again." << endl;
-		}
-		else if (start == DateTime()) {
-			cout << "Start time cannot be the same as current time! Please try again." << endl;
+			continue;
 		}
 		else if (start > DateTime()) {
 			break;
@@ -1292,11 +1138,8 @@ static void addTaskToUser(User* user) {
 		if (!end.isValid()) {
 			cout << "Invalid end date! Please try again." << endl;
 		}
-		else if (end < start) {
+		if (end < start) {
 			cout << "End time cannot be earlier than start time! Please try again." << endl;
-		}
-		else if (end == start) {
-			cout << "End time cannot be the same as start time! Please try again." << endl;
 		}
 		else if (end > start) {
 			break;
@@ -1318,6 +1161,108 @@ static void addTaskToUser(User* user) {
 
 
 
+void displayFiltering(User* user) {
+	int filterChoice = 0, priorityChoice = 0;
+	DateTime startDate, endDate;
+
+	while (true) {
+		system("cls||clear");
+		cout << "Use arrow keys to navigate, Enter to apply filter, and ESC to exit." << endl;
+
+		cout << "Filter by:" << endl;
+		cout << (filterChoice == 0 ? COLOR_MAGENTA : COLOR_RESET) << "1. Priority" << COLOR_RESET << endl;
+		cout << (filterChoice == 1 ? COLOR_MAGENTA : COLOR_RESET) << "2. Date Range" << COLOR_RESET << endl;
+		cout << (filterChoice == 2 ? COLOR_MAGENTA : COLOR_RESET) << "3. Back" << COLOR_RESET << endl;
+
+		int c = _getch();
+		switch (c) {
+		case KEY_UP:
+			filterChoice = (filterChoice > 0) ? filterChoice - 1 : 2;
+			break;
+		case KEY_DOWN:
+			filterChoice = (filterChoice < 2) ? filterChoice + 1 : 0;
+			break;
+		case ENTER_KEY:
+			switch (filterChoice) {
+			case 0: { // Prioritetə görə süzmə
+				while (true) {
+					system("cls||clear");
+					cout << "Select Priority:" << endl;
+					for (int i = 0; i <= 4; ++i) {
+						if (priorityChoice == i) {
+							cout << COLOR_MAGENTA << "> " << i << " - " << Task::priorityToString(static_cast<Priority>(i)) << COLOR_RESET << endl;
+						}
+						else {
+							cout << "  " << i << " - " << Task::priorityToString(static_cast<Priority>(i)) << endl;
+						}
+					}
+
+					int pc = _getch();
+					switch (pc) {
+					case KEY_UP:
+						priorityChoice = (priorityChoice > 0) ? priorityChoice - 1 : 4;
+						break;
+					case KEY_DOWN:
+						priorityChoice = (priorityChoice < 4) ? priorityChoice + 1 : 0;
+						break;
+					case ENTER_KEY:
+						user->filterByPriority(static_cast<Priority>(priorityChoice));
+						cout << "Filtered tasks by priority." << endl;
+						break;
+					case ESC:
+						return;
+					}
+				}
+				break;
+			}
+			case 1: { // Tarix aralığına görə süzmə
+				while (true) {
+					system("cls||clear");
+					cout << "Enter Start Date (YYYY MM DD HH MM SS): ";
+					cin >> startDate.year >> startDate.month >> startDate.day
+						>> startDate.hour >> startDate.minute >> startDate.second;
+
+					if (!startDate.isValid()) {
+						cout << "Invalid start date! Please try again." << endl;
+						cin.clear();
+						cin.ignore(INT_MAX, '\n');
+						continue;
+					}
+
+					cout << "Enter End Date (YYYY MM DD HH MM SS): ";
+					cin >> endDate.year >> endDate.month >> endDate.day
+						>> endDate.hour >> endDate.minute >> endDate.second;
+
+					if (!endDate.isValid() || endDate < startDate) {
+						cout << "Invalid end date! End date must be valid and later than the start date." << endl;
+						cin.clear();
+						cin.ignore(INT_MAX, '\n');
+						continue;
+					}
+
+					user->filterTasksByDate(startDate, endDate);
+					cout << "Filtered tasks by date range." << endl;
+					cout << "Press any key to return to filter selection..." << endl;
+					(void)_getch();
+					break;
+				}
+				break;
+			}
+			case 2:
+				return;
+			}
+			break;
+		case ESC:
+			cout << "Exiting filter display..." << endl;
+			return;
+		}
+	}
+}
+
+
+
+
+
 
 void displayMenu(UserManager& userManager) {
 	int choice = 0;
@@ -1326,20 +1271,18 @@ void displayMenu(UserManager& userManager) {
 		system("cls||clear");
 		welcomeMessage();
 		cout << "Use arrow keys to navigate and Enter to select." << endl;
-		cout << (choice == 0 ? COLOR_MAGENTA : COLOR_RESET) << "\v1. Login: " << endl;
-		cout << (choice == 1 ? COLOR_MAGENTA : COLOR_RESET) << "2. Register: " << endl;
-		cout << (choice == 2 ? COLOR_MAGENTA : COLOR_RESET) << "3. Exit: " << endl;
-		cout << COLOR_RESET << endl;
+
+		cout << (choice == 0 ? COLOR_MAGENTA : COLOR_RESET) << "\v1. Login" << COLOR_RESET << endl;
+		cout << (choice == 1 ? COLOR_MAGENTA : COLOR_RESET) << "2. Register" << COLOR_RESET << endl;
+		cout << (choice == 2 ? COLOR_MAGENTA : COLOR_RESET) << "3. Exit" << COLOR_RESET << endl;
 
 		int c = _getch();
 		switch (c) {
 		case KEY_UP:
-			if (choice > 0) choice--;
-			else choice = 2;
+			choice = (choice > 0) ? choice - 1 : 2;
 			break;
 		case KEY_DOWN:
-			if (choice < 2) choice++;
-			else choice = 0;
+			choice = (choice < 2) ? choice + 1 : 0;
 			break;
 		case ENTER_KEY:
 			switch (choice) {
@@ -1353,53 +1296,52 @@ void displayMenu(UserManager& userManager) {
 						system("cls||clear");
 						cout << "Use arrow keys to navigate and Enter to select." << endl;
 						cout << "\033[1;36m" << "\n\nWelcome, " << user->getUsername() << "!" << "\033[0m\v\v" << endl;
-						cout << (userChoice == 0 ? COLOR_MAGENTA : COLOR_RESET) << "1. Add Task" << endl;
-						cout << (userChoice == 1 ? COLOR_MAGENTA : COLOR_RESET) << "2. Remove Task" << endl;
-						cout << (userChoice == 2 ? COLOR_MAGENTA : COLOR_RESET) << "3. Update Task" << endl;
-						cout << (userChoice == 3 ? COLOR_MAGENTA : COLOR_RESET) << "4. Display Tasks" << endl;
-						cout << (userChoice == 4 ? COLOR_MAGENTA : COLOR_RESET) << "5. Filter by Priority" << endl;
-						cout << (userChoice == 5 ? COLOR_MAGENTA : COLOR_RESET) << "6. Filter by Date" << endl;
-						cout << (userChoice == 6 ? COLOR_MAGENTA : COLOR_RESET) << "7. Logout" << endl;
-						cout << COLOR_RESET << endl;
+
+						cout << (userChoice == 0 ? COLOR_MAGENTA : COLOR_RESET) << "1. Add Task" << COLOR_RESET << endl;
+						cout << (userChoice == 1 ? COLOR_MAGENTA : COLOR_RESET) << "2. Remove Task" << COLOR_RESET << endl;
+						cout << (userChoice == 2 ? COLOR_MAGENTA : COLOR_RESET) << "3. Update Task" << COLOR_RESET << endl;
+						cout << (userChoice == 3 ? COLOR_MAGENTA : COLOR_RESET) << "4. Display Tasks" << COLOR_RESET << endl;
+						cout << (userChoice == 4 ? COLOR_MAGENTA : COLOR_RESET) << "5. Filtering" << COLOR_RESET << endl;
+						cout << (userChoice == 5 ? COLOR_MAGENTA : COLOR_RESET) << "6. Logout" << COLOR_RESET << endl;
 
 						int userInput = _getch();
 						switch (userInput) {
 						case KEY_UP:
-							if (userChoice > 0) userChoice--;
-							else userChoice = 6;
+							userChoice = (userChoice > 0) ? userChoice - 1 : 5; // Əvvəlki seçimi seç
 							break;
 						case KEY_DOWN:
-							if (userChoice < 6) userChoice++;
-							else userChoice = 0;
+							userChoice = (userChoice < 5) ? userChoice + 1 : 0; // Növbəti seçimi seç
 							break;
 						case ENTER_KEY:
 							switch (userChoice) {
 							case 0:
-								addTaskToUser(user);
+								addTaskToUser(user); // Yeni tapşırıq əlavə et
 								break;
 							case 1:
-								displayRemoving(user);
+								displayRemoving(user); // Tapşırıq silmə menyusu
 								break;
 							case 2:
-								displayUpdating(user);
+								displayUpdating(user); // Tapşırıq yeniləmə menyusu
 								break;
 							case 3:
-								user->displayTasks();
+								user->displayTasks(); // Tapşırıqları göstər
 								break;
 							case 4:
-								user->filterByPriority(Priority::HIGH);
+								displayFiltering(user); // Filtrləmə menyusu
 								break;
-							case 5:
-								user->filterTasksByDate(DateTime(), DateTime());
-								break;
-							case 6:
+							case 5: // Logout
+								user = nullptr; // İstifadəçi məlumatlarını sıfırla
 								return;
 							}
 							cout << "Press any key to continue..." << endl;
-							(void)_getch();
+							(void)_getch(); // İstifadəçi girişini gözləyin
 							break;
 						}
 					}
+				}
+				else {
+					cout << "Press any key to return to the main menu..." << endl;
+					(void)_getch();
 				}
 				break;
 			}
@@ -1408,7 +1350,7 @@ void displayMenu(UserManager& userManager) {
 				break;
 			case 2:
 				showDotsExiting();
-				return;
+				break;
 			}
 			break;
 		default:
@@ -1416,4 +1358,3 @@ void displayMenu(UserManager& userManager) {
 		}
 	}
 }
-

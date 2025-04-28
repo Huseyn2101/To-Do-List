@@ -133,6 +133,7 @@
     <ClInclude Include="class.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="database.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
