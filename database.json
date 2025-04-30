@@ -6,7 +6,7 @@
       {
         "name": "Watch El Clasico Replay",
         "description": "Re-watch Real Madrid's thrilling win and analyze their offensive and defensive transitions thoroughly.",
-        "priority": "HIGH",
+        "priority": 2,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -28,7 +28,7 @@
       {
         "name": "Read Quran Peacefully",
         "description": "Focus on reciting Surah Al-Baqarah and reflecting on the meaning of verses with tafsir.",
-        "priority": "HIGH",
+        "priority": 2,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -50,7 +50,7 @@
       {
         "name": "Work on Dribbling",
         "description": "Improve left foot control and acceleration with cone-based dribbling drills at the local stadium.",
-        "priority": "MEDIUM",
+        "priority": 1,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -72,7 +72,7 @@
       {
         "name": "Football Tracker App",
         "description": "Build a Python-based app to track matches using live football data APIs.",
-        "priority": "HIGH",
+        "priority": 2,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -94,7 +94,7 @@
       {
         "name": "Family Dinner",
         "description": "Sit down with family to eat and talk about the week’s positive moments and future plans.",
-        "priority": "LOW",
+        "priority": 1,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -116,7 +116,7 @@
       {
         "name": "Backend Login Fix",
         "description": "Review backend login code and solve token expiration bugs and redirect loops.",
-        "priority": "CRITICAL",
+        "priority": 3,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -144,7 +144,7 @@
       {
         "name": "Valorant Ranked Night",
         "description": "Play competitive matches with friends and try to reach Platinum rank before reset.",
-        "priority": "HIGH",
+        "priority": 2,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -166,7 +166,7 @@
       {
         "name": "Oversleep Plan",
         "description": "Set an alarm but ignore it to extend sleep, skipping first lectures.",
-        "priority": "LOW",
+        "priority": 0,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -188,7 +188,7 @@
       {
         "name": "Flu Recovery",
         "description": "Stay in bed, drink herbal tea and monitor temperature and symptoms closely.",
-        "priority": "MEDIUM",
+        "priority": 1,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -210,7 +210,7 @@
       {
         "name": "Fix RPG Inventory Bug",
         "description": "Debug an item stacking issue in RPG code that breaks the player inventory.",
-        "priority": "HIGH",
+        "priority": 2,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -232,7 +232,7 @@
       {
         "name": "Streamer Tactics Review",
         "description": "Analyze high-rank streamer tactics for better positioning and map control.",
-        "priority": "LOW",
+        "priority": 0,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -254,7 +254,7 @@
       {
         "name": "Optimize Game Engine",
         "description": "Improve movement and hitbox collision handling for smoother in-game physics.",
-        "priority": "HIGH",
+        "priority": 2,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -282,7 +282,7 @@
       {
         "name": "Niva Repair Guide",
         "description": "Read forums and watch mechanic tutorials on engine maintenance for Niva cars.",
-        "priority": "MEDIUM",
+        "priority": 1,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -304,7 +304,7 @@
       {
         "name": "Recharge Nap",
         "description": "Take a power nap in the late afternoon to boost energy for coding sessions.",
-        "priority": "LOW",
+        "priority": 0,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -326,7 +326,7 @@
       {
         "name": "Launch Portfolio Website",
         "description": "Set up a basic portfolio with sections for resume, contact, and projects using HTML/CSS.",
-        "priority": "HIGH",
+        "priority": 2,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -348,7 +348,7 @@
       {
         "name": "C++ Vector Mastery",
         "description": "Revisit custom vector implementation and test various edge cases and memory usage.",
-        "priority": "HIGH",
+        "priority": 2,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -370,7 +370,7 @@
       {
         "name": "Desk Cleanup",
         "description": "Organize the desk, sort notes and clean cables for better focus.",
-        "priority": "LOW",
+        "priority": 0,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -392,7 +392,7 @@
       {
         "name": "Fix LinkedList Error",
         "description": "Debug and resolve segmentation fault caused by improper node insertion.",
-        "priority": "CRITICAL",
+        "priority": "3",
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -420,7 +420,7 @@
       {
         "name": "Study Azerbaijani",
         "description": "Learn grammar rules and practice pronunciation from the A1 language guide.",
-        "priority": "MEDIUM",
+        "priority": 1,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -442,7 +442,7 @@
       {
         "name": "iPad Coding Challenge",
         "description": "Code a to-do list app in Swift using UIKit and test it on your iPad.",
-        "priority": "HIGH",
+        "priority": 2,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -464,7 +464,7 @@
       {
         "name": "Russian Speaking Practice",
         "description": "Join a conversation club to improve fluency by speaking with native Russian speakers.",
-        "priority": "HIGH",
+        "priority": 2,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -486,7 +486,7 @@
       {
         "name": "Language Homework",
         "description": "Complete exercises on noun cases and verbs of motion for your language course.",
-        "priority": "MEDIUM",
+        "priority": 1,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -508,7 +508,7 @@
       {
         "name": "Install IDE",
         "description": "Download and configure a coding environment app on your iPad like Playgrounds or Juno.",
-        "priority": "LOW",
+        "priority": 0,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -530,7 +530,7 @@
       {
         "name": "Flashcard Review",
         "description": "Use Anki to revise vocabulary learned during the week and track spaced repetition progress.",
-        "priority": "MEDIUM",
+        "priority": 1,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -558,7 +558,7 @@
       {
         "name": "CS Map Practice",
         "description": "Practice grenade throws and angles on Dust2 map.",
-        "priority": "MEDIUM",
+        "priority": 1,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -580,7 +580,7 @@
       {
         "name": "Host LAN Party",
         "description": "Organize a CS LAN party with friends and ensure all configs are synced.",
-        "priority": "HIGH",
+        "priority": 2,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -602,7 +602,7 @@
       {
         "name": "Demo Review Session",
         "description": "Review match demos to spot reaction time mistakes and missed headshots.",
-        "priority": "HIGH",
+        "priority": 2,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -624,7 +624,7 @@
       {
         "name": "Crosshair Tuning",
         "description": "Test multiple crosshair styles and dynamic/static settings for precision.",
-        "priority": "LOW",
+        "priority": 0,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -646,7 +646,7 @@
       {
         "name": "Update Gaming Rig",
         "description": "Install latest GPU drivers and remove dust from fans.",
-        "priority": "MEDIUM",
+        "priority": 1,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -668,7 +668,7 @@
       {
         "name": "CS Plugin Debug",
         "description": "Fix plugin bug affecting killfeed display in private servers.",
-        "priority": "CRITICAL",
+        "priority": "3",
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -696,7 +696,7 @@
       {
         "name": "Set Alarm Challenge",
         "description": "Try waking up to first alarm without snoozing; record experience in journal.",
-        "priority": "LOW",
+        "priority": 0,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -718,7 +718,7 @@
       {
         "name": "Class Punctuality Goal",
         "description": "Attempt to attend all classes on time for one week and reflect on performance.",
-        "priority": "MEDIUM",
+        "priority": 1,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -740,7 +740,7 @@
       {
         "name": "Language Clarity Exercise",
         "description": "Practice speaking slower and more clearly in Azerbaijani with a partner.",
-        "priority": "HIGH",
+        "priority": 2,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -762,7 +762,7 @@
       {
         "name": "Motivational Video Session",
         "description": "Watch 2 motivational videos on self-discipline and record key points.",
-        "priority": "LOW",
+        "priority": 0,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -784,7 +784,7 @@
       {
         "name": "Wake-Up Routine Plan",
         "description": "Design and implement a consistent morning routine to improve energy.",
-        "priority": "MEDIUM",
+        "priority": 1,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -806,7 +806,7 @@
       {
         "name": "Voice Recorder Practice",
         "description": "Use voice recording to evaluate speech clarity and pace.",
-        "priority": "MEDIUM",
+        "priority": 1,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -834,7 +834,7 @@
       {
         "name": "Vito Engine Check",
         "description": "Inspect Mercedes Vito engine and fluid levels before trip to ensure safety.",
-        "priority": "MEDIUM",
+        "priority": 1,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -856,7 +856,7 @@
       {
         "name": "Community Assistance",
         "description": "Support neighbors with loading furniture and appliances into moving trucks.",
-        "priority": "HIGH",
+        "priority": 2,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -878,7 +878,7 @@
       {
         "name": "Police Coordination Call",
         "description": "Coordinate with traffic police for temporary road use approval.",
-        "priority": "MEDIUM",
+        "priority": 1,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -900,7 +900,7 @@
       {
         "name": "Interior Van Clean",
         "description": "Deep clean vehicle cabin to improve comfort and hygiene for clients.",
-        "priority": "LOW",
+        "priority": 0,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -922,7 +922,7 @@
       {
         "name": "Transport Schedule Plan",
         "description": "Create weekly transport schedule and delivery optimization for upcoming requests.",
-        "priority": "HIGH",
+        "priority": 2,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -944,7 +944,7 @@
       {
         "name": "Review Customer Feedback",
         "description": "Check feedback from clients and prepare improvement action points.",
-        "priority": "MEDIUM",
+        "priority": 1,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -972,7 +972,7 @@
       {
         "name": "Train Ride Reflection",
         "description": "Write a short piece about experience living briefly on a train during summer.",
-        "priority": "LOW",
+        "priority": 0,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -994,7 +994,7 @@
       {
         "name": "Skip Class Strategy",
         "description": "Re-evaluate academic priorities and plan how to improve attendance moving forward.",
-        "priority": "MEDIUM",
+        "priority": 1,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -1016,7 +1016,7 @@
       {
         "name": "Qabala Game Night",
         "description": "Attend Qəbələ FC match with friends and enjoy stadium atmosphere.",
-        "priority": "HIGH",
+        "priority": 2,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -1038,7 +1038,7 @@
       {
         "name": "Football Analysis Thread",
         "description": "Create social media thread analyzing Qəbələ's tactics in their last match.",
-        "priority": "MEDIUM",
+        "priority": 1,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -1060,7 +1060,7 @@
       {
         "name": "Morning Jog",
         "description": "Jog 2km in the park to improve stamina and start day with energy.",
-        "priority": "LOW",
+        "priority": 0,
         "startTime": {
           "year": 2025,
           "month": 4,
@@ -1082,7 +1082,7 @@
       {
         "name": "Fix TrainCode Module",
         "description": "Debug the seat reservation logic inside the custom-made railway system project.",
-        "priority": "CRITICAL",
+        "priority": 3,
         "startTime": {
           "year": 2025,
           "month": 4,

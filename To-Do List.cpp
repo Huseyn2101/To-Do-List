@@ -23,9 +23,12 @@ int main()
 {
 	cout << boolalpha << endl;
 
-	string databaseFile = "Source Files/database.json";
+	string databaseFile = "./database.json";
 
 	UserManager userManager(databaseFile);
+
+	auto users = userManager.getUsers();
+	cout << users[0].getUsername() << endl;
 
 	while (true)
 	{

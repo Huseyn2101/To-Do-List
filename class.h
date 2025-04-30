@@ -425,7 +425,8 @@ public:
 		Task task;
 		task._name = j["name"];
 		task._description = j["description"];
-		task._priority = static_cast<Priority>(j["priority"].get<int>());
+		auto data = j["priority"].get<int>();
+		task._priority = static_cast<Priority>(data);
 		task._startTime = DateTime::fromJson(j["startTime"]);
 		task._endTime = DateTime::fromJson(j["endTime"]);
 		task._completed = j["completed"];
