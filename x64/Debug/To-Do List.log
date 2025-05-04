@@ -5,13 +5,4 @@ C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(275,17): warning C4309: 
 C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(676,11): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'To-Do%20List.cpp')
   
-C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(910,21): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  (compiling source file 'To-Do%20List.cpp')
-  
-C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(1019,21): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  (compiling source file 'To-Do%20List.cpp')
-  
-C:\Users\user\Desktop\C++\CPPLessons\To-Do List\class.h(1074,21): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  (compiling source file 'To-Do%20List.cpp')
-  
   To-Do List.vcxproj -> C:\Users\user\Desktop\C++\CPPLessons\x64\Debug\To-Do List.exe

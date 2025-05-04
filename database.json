@@ -1,1106 +1,283 @@
-﻿[
-  {
-    "username": "nhu55uxn",
-    "password": "g7mkz2tu",
-    "tasks": [
-      {
-        "name": "Watch El Clasico Replay",
-        "description": "Re-watch Real Madrid's thrilling win and analyze their offensive and defensive transitions thoroughly.",
-        "priority": 2,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 16,
-          "hour": 21,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 16,
-          "hour": 23,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Read Quran Peacefully",
-        "description": "Focus on reciting Surah Al-Baqarah and reflecting on the meaning of verses with tafsir.",
-        "priority": 2,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 16,
-          "hour": 23,
-          "minute": 30,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 0,
-          "minute": 30,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Work on Dribbling",
-        "description": "Improve left foot control and acceleration with cone-based dribbling drills at the local stadium.",
-        "priority": 1,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 18,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 18,
-          "minute": 45,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Football Tracker App",
-        "description": "Build a Python-based app to track matches using live football data APIs.",
-        "priority": 2,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 18,
-          "hour": 20,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 18,
-          "hour": 22,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Family Dinner",
-        "description": "Sit down with family to eat and talk about the week’s positive moments and future plans.",
-        "priority": 1,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 19,
-          "hour": 19,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 19,
-          "hour": 21,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Backend Login Fix",
-        "description": "Review backend login code and solve token expiration bugs and redirect loops.",
-        "priority": 3,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 20,
-          "hour": 14,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 20,
-          "hour": 15,
-          "minute": 30,
-          "second": 0
-        },
-        "completed": false
-      }
-    ]
-  },
-  {
-    "username": "ako_ismahilov",
-    "password": "h3lreq9p",
-    "tasks": [
-      {
-        "name": "Valorant Ranked Night",
-        "description": "Play competitive matches with friends and try to reach Platinum rank before reset.",
-        "priority": 2,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 16,
-          "hour": 22,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 1,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Oversleep Plan",
-        "description": "Set an alarm but ignore it to extend sleep, skipping first lectures.",
-        "priority": 0,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 10,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 12,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Flu Recovery",
-        "description": "Stay in bed, drink herbal tea and monitor temperature and symptoms closely.",
-        "priority": 1,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 18,
-          "hour": 9,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 18,
-          "hour": 9,
-          "minute": 30,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Fix RPG Inventory Bug",
-        "description": "Debug an item stacking issue in RPG code that breaks the player inventory.",
-        "priority": 2,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 19,
-          "hour": 20,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 19,
-          "hour": 21,
-          "minute": 30,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Streamer Tactics Review",
-        "description": "Analyze high-rank streamer tactics for better positioning and map control.",
-        "priority": 0,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 20,
-          "hour": 23,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 21,
-          "hour": 1,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Optimize Game Engine",
-        "description": "Improve movement and hitbox collision handling for smoother in-game physics.",
-        "priority": 2,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 21,
-          "hour": 15,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 21,
-          "hour": 17,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      }
-    ]
-  },
-  {
-    "username": "h_haciyefh",
-    "password": "tb5wcz1k",
-    "tasks": [
-      {
-        "name": "Niva Repair Guide",
-        "description": "Read forums and watch mechanic tutorials on engine maintenance for Niva cars.",
-        "priority": 1,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 13,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 14,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Recharge Nap",
-        "description": "Take a power nap in the late afternoon to boost energy for coding sessions.",
-        "priority": 0,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 17,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 19,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Launch Portfolio Website",
-        "description": "Set up a basic portfolio with sections for resume, contact, and projects using HTML/CSS.",
-        "priority": 2,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 18,
-          "hour": 10,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 18,
-          "hour": 13,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "C++ Vector Mastery",
-        "description": "Revisit custom vector implementation and test various edge cases and memory usage.",
-        "priority": 2,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 19,
-          "hour": 15,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 19,
-          "hour": 16,
-          "minute": 30,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Desk Cleanup",
-        "description": "Organize the desk, sort notes and clean cables for better focus.",
-        "priority": 0,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 20,
-          "hour": 12,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 20,
-          "hour": 12,
-          "minute": 45,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Fix LinkedList Error",
-        "description": "Debug and resolve segmentation fault caused by improper node insertion.",
-        "priority": "3",
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 21,
-          "hour": 14,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 21,
-          "hour": 16,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      }
-    ]
-  },
-  {
-    "username": "404nilfound",
-    "password": "qs8jx4mv",
-    "tasks": [
-      {
-        "name": "Study Azerbaijani",
-        "description": "Learn grammar rules and practice pronunciation from the A1 language guide.",
-        "priority": 1,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 10,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 11,
-          "minute": 30,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "iPad Coding Challenge",
-        "description": "Code a to-do list app in Swift using UIKit and test it on your iPad.",
-        "priority": 2,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 14,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 16,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Russian Speaking Practice",
-        "description": "Join a conversation club to improve fluency by speaking with native Russian speakers.",
-        "priority": 2,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 18,
-          "hour": 18,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 18,
-          "hour": 18,
-          "minute": 45,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Language Homework",
-        "description": "Complete exercises on noun cases and verbs of motion for your language course.",
-        "priority": 1,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 19,
-          "hour": 10,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 19,
-          "hour": 12,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Install IDE",
-        "description": "Download and configure a coding environment app on your iPad like Playgrounds or Juno.",
-        "priority": 0,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 20,
-          "hour": 19,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 20,
-          "hour": 19,
-          "minute": 30,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Flashcard Review",
-        "description": "Use Anki to revise vocabulary learned during the week and track spaced repetition progress.",
-        "priority": 1,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 21,
-          "hour": 22,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 21,
-          "hour": 22,
-          "minute": 30,
-          "second": 0
-        },
-        "completed": false
-      }
-    ]
-  },
-  {
-    "username": "axmedli_cs",
-    "password": "m9zuey2t",
-    "tasks": [
-      {
-        "name": "CS Map Practice",
-        "description": "Practice grenade throws and angles on Dust2 map.",
-        "priority": 1,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 13,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 14,
-          "minute": 30,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Host LAN Party",
-        "description": "Organize a CS LAN party with friends and ensure all configs are synced.",
-        "priority": 2,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 18,
-          "hour": 19,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 18,
-          "hour": 23,
-          "minute": 30,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Demo Review Session",
-        "description": "Review match demos to spot reaction time mistakes and missed headshots.",
-        "priority": 2,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 19,
-          "hour": 15,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 19,
-          "hour": 17,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Crosshair Tuning",
-        "description": "Test multiple crosshair styles and dynamic/static settings for precision.",
-        "priority": 0,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 20,
-          "hour": 20,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 20,
-          "hour": 20,
-          "minute": 30,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Update Gaming Rig",
-        "description": "Install latest GPU drivers and remove dust from fans.",
-        "priority": 1,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 21,
-          "hour": 11,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 21,
-          "hour": 12,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "CS Plugin Debug",
-        "description": "Fix plugin bug affecting killfeed display in private servers.",
-        "priority": "3",
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 21,
-          "hour": 18,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 21,
-          "hour": 19,
-          "minute": 30,
-          "second": 0
-        },
-        "completed": false
-      }
-    ]
-  },
-  {
-    "username": "gulchin_snoozer",
-    "password": "f2rkl7nb",
-    "tasks": [
-      {
-        "name": "Set Alarm Challenge",
-        "description": "Try waking up to first alarm without snoozing; record experience in journal.",
-        "priority": 0,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 7,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 7,
-          "minute": 30,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Class Punctuality Goal",
-        "description": "Attempt to attend all classes on time for one week and reflect on performance.",
-        "priority": 1,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 9,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 10,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Language Clarity Exercise",
-        "description": "Practice speaking slower and more clearly in Azerbaijani with a partner.",
-        "priority": 2,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 18,
-          "hour": 11,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 18,
-          "hour": 11,
-          "minute": 30,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Motivational Video Session",
-        "description": "Watch 2 motivational videos on self-discipline and record key points.",
-        "priority": 0,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 19,
-          "hour": 15,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 19,
-          "hour": 15,
-          "minute": 30,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Wake-Up Routine Plan",
-        "description": "Design and implement a consistent morning routine to improve energy.",
-        "priority": 1,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 20,
-          "hour": 8,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 20,
-          "hour": 8,
-          "minute": 45,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Voice Recorder Practice",
-        "description": "Use voice recording to evaluate speech clarity and pace.",
-        "priority": 1,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 21,
-          "hour": 17,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 21,
-          "hour": 17,
-          "minute": 45,
-          "second": 0
-        },
-        "completed": false
-      }
-    ]
-  },
-  {
-    "username": "vistoria_vito",
-    "password": "d6whqe3n",
-    "tasks": [
-      {
-        "name": "Vito Engine Check",
-        "description": "Inspect Mercedes Vito engine and fluid levels before trip to ensure safety.",
-        "priority": 1,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 10,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 11,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Community Assistance",
-        "description": "Support neighbors with loading furniture and appliances into moving trucks.",
-        "priority": 2,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 13,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 14,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Police Coordination Call",
-        "description": "Coordinate with traffic police for temporary road use approval.",
-        "priority": 1,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 18,
-          "hour": 12,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 18,
-          "hour": 12,
-          "minute": 30,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Interior Van Clean",
-        "description": "Deep clean vehicle cabin to improve comfort and hygiene for clients.",
-        "priority": 0,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 19,
-          "hour": 16,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 19,
-          "hour": 17,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Transport Schedule Plan",
-        "description": "Create weekly transport schedule and delivery optimization for upcoming requests.",
-        "priority": 2,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 20,
-          "hour": 19,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 20,
-          "hour": 20,
-          "minute": 30,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Review Customer Feedback",
-        "description": "Check feedback from clients and prepare improvement action points.",
-        "priority": 1,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 21,
-          "hour": 15,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 21,
-          "hour": 15,
-          "minute": 45,
-          "second": 0
-        },
-        "completed": false
-      }
-    ]
-  },
-  {
-    "username": "tamerlan_trainMan",
-    "password": "u1jvmc9x",
-    "tasks": [
-      {
-        "name": "Train Ride Reflection",
-        "description": "Write a short piece about experience living briefly on a train during summer.",
-        "priority": 0,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 20,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 17,
-          "hour": 20,
-          "minute": 45,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Skip Class Strategy",
-        "description": "Re-evaluate academic priorities and plan how to improve attendance moving forward.",
-        "priority": 1,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 18,
-          "hour": 10,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 18,
-          "hour": 11,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Qabala Game Night",
-        "description": "Attend Qəbələ FC match with friends and enjoy stadium atmosphere.",
-        "priority": 2,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 19,
-          "hour": 18,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 19,
-          "hour": 20,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Football Analysis Thread",
-        "description": "Create social media thread analyzing Qəbələ's tactics in their last match.",
-        "priority": 1,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 20,
-          "hour": 21,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 20,
-          "hour": 22,
-          "minute": 0,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Morning Jog",
-        "description": "Jog 2km in the park to improve stamina and start day with energy.",
-        "priority": 0,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 21,
-          "hour": 7,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 21,
-          "hour": 7,
-          "minute": 30,
-          "second": 0
-        },
-        "completed": false
-      },
-      {
-        "name": "Fix TrainCode Module",
-        "description": "Debug the seat reservation logic inside the custom-made railway system project.",
-        "priority": 3,
-        "startTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 21,
-          "hour": 18,
-          "minute": 0,
-          "second": 0
-        },
-        "endTime": {
-          "year": 2025,
-          "month": 4,
-          "day": 21,
-          "hour": 19,
-          "minute": 30,
-          "second": 0
-        },
-        "completed": false
-      }
-    ]
-  }
+[
+    {
+        "password": "",
+        "tasks": [
+            {
+                "completed": false,
+                "description": "Re-watch Real Madrid's thrilling win and analyze their offensive and defensive transitions thoroughly.",
+                "endTime": {
+                    "day": 16,
+                    "hour": 23,
+                    "minute": 0,
+                    "month": 4,
+                    "second": 0,
+                    "year": 2025
+                },
+                "name": "Watch El Clasico Replay",
+                "priority": 2,
+                "startTime": {
+                    "day": 0,
+                    "hour": 0,
+                    "minute": 0,
+                    "month": 0,
+                    "second": 0,
+                    "year": 0
+                }
+            },
+            {
+                "completed": false,
+                "description": "Focus on reciting Surah Al-Baqarah and reflecting on the meaning of verses with tafsir.",
+                "endTime": {
+                    "day": 17,
+                    "hour": 0,
+                    "minute": 30,
+                    "month": 4,
+                    "second": 0,
+                    "year": 2025
+                },
+                "name": "Read Quran Peacefully",
+                "priority": 2,
+                "startTime": {
+                    "day": 0,
+                    "hour": 0,
+                    "minute": 0,
+                    "month": 0,
+                    "second": 0,
+                    "year": 0
+                }
+            },
+            {
+                "completed": false,
+                "description": "Improve left foot control and acceleration with cone-based dribbling drills at the local stadium.",
+                "endTime": {
+                    "day": 17,
+                    "hour": 18,
+                    "minute": 45,
+                    "month": 4,
+                    "second": 0,
+                    "year": 2025
+                },
+                "name": "Work on Dribbling",
+                "priority": 1,
+                "startTime": {
+                    "day": 0,
+                    "hour": 0,
+                    "minute": 0,
+                    "month": 0,
+                    "second": 0,
+                    "year": 0
+                }
+            },
+            {
+                "completed": false,
+                "description": "Build a Python-based app to track matches using live football data APIs.",
+                "endTime": {
+                    "day": 18,
+                    "hour": 22,
+                    "minute": 0,
+                    "month": 4,
+                    "second": 0,
+                    "year": 2025
+                },
+                "name": "Football Tracker App",
+                "priority": 2,
+                "startTime": {
+                    "day": 0,
+                    "hour": 0,
+                    "minute": 0,
+                    "month": 0,
+                    "second": 0,
+                    "year": 0
+                }
+            },
+            {
+                "completed": false,
+                "description": "Sit down with family to eat and talk about the week’s positive moments and future plans.",
+                "endTime": {
+                    "day": 19,
+                    "hour": 21,
+                    "minute": 0,
+                    "month": 4,
+                    "second": 0,
+                    "year": 2025
+                },
+                "name": "Family Dinner",
+                "priority": 1,
+                "startTime": {
+                    "day": 0,
+                    "hour": 0,
+                    "minute": 0,
+                    "month": 0,
+                    "second": 0,
+                    "year": 0
+                }
+            },
+            {
+                "completed": false,
+                "description": "Review backend login code and solve token expiration bugs and redirect loops.",
+                "endTime": {
+                    "day": 20,
+                    "hour": 15,
+                    "minute": 30,
+                    "month": 4,
+                    "second": 0,
+                    "year": 2025
+                },
+                "name": "Backend Login Fix",
+                "priority": 3,
+                "startTime": {
+                    "day": 0,
+                    "hour": 0,
+                    "minute": 0,
+                    "month": 0,
+                    "second": 0,
+                    "year": 0
+                }
+            }
+        ],
+        "username": "nhu55uxn"
+    },
+    {
+        "password": "",
+        "tasks": [
+            {
+                "completed": false,
+                "description": "Play competitive matches with friends and try to reach Platinum rank before reset.",
+                "endTime": {
+                    "day": 17,
+                    "hour": 1,
+                    "minute": 0,
+                    "month": 4,
+                    "second": 0,
+                    "year": 2025
+                },
+                "name": "Valorant Ranked Night",
+                "priority": 2,
+                "startTime": {
+                    "day": 0,
+                    "hour": 0,
+                    "minute": 0,
+                    "month": 0,
+                    "second": 0,
+                    "year": 0
+                }
+            },
+            {
+                "completed": false,
+                "description": "Set an alarm but ignore it to extend sleep, skipping first lectures.",
+                "endTime": {
+                    "day": 17,
+                    "hour": 12,
+                    "minute": 0,
+                    "month": 4,
+                    "second": 0,
+                    "year": 2025
+                },
+                "name": "Oversleep Plan",
+                "priority": 0,
+                "startTime": {
+                    "day": 0,
+                    "hour": 0,
+                    "minute": 0,
+                    "month": 0,
+                    "second": 0,
+                    "year": 0
+                }
+            },
+            {
+                "completed": false,
+                "description": "Stay in bed, drink herbal tea and monitor temperature and symptoms closely.",
+                "endTime": {
+                    "day": 18,
+                    "hour": 9,
+                    "minute": 30,
+                    "month": 4,
+                    "second": 0,
+                    "year": 2025
+                },
+                "name": "Flu Recovery",
+                "priority": 1,
+                "startTime": {
+                    "day": 0,
+                    "hour": 0,
+                    "minute": 0,
+                    "month": 0,
+                    "second": 0,
+                    "year": 0
+                }
+            },
+            {
+                "completed": false,
+                "description": "Debug an item stacking issue in RPG code that breaks the player inventory.",
+                "endTime": {
+                    "day": 19,
+                    "hour": 21,
+                    "minute": 30,
+                    "month": 4,
+                    "second": 0,
+                    "year": 2025
+                },
+                "name": "Fix RPG Inventory Bug",
+                "priority": 2,
+                "startTime": {
+                    "day": 0,
+                    "hour": 0,
+                    "minute": 0,
+                    "month": 0,
+                    "second": 0,
+                    "year": 0
+                }
+            },
+            {
+                "completed": false,
+                "description": "Analyze high-rank streamer tactics for better positioning and map control.",
+                "endTime": {
+                    "day": 21,
+                    "hour": 1,
+                    "minute": 0,
+                    "month": 4,
+                    "second": 0,
+                    "year": 2025
+                },
+                "name": "Streamer Tactics Review",
+                "priority": 0,
+                "startTime": {
+                    "day": 0,
+                    "hour": 0,
+                    "minute": 0,
+                    "month": 0,
+                    "second": 0,
+                    "year": 0
+                }
+            },
+            {
+                "completed": false,
+                "description": "Improve movement and hitbox collision handling for smoother in-game physics.",
+                "endTime": {
+                    "day": 21,
+                    "hour": 17,
+                    "minute": 0,
+                    "month": 4,
+                    "second": 0,
+                    "year": 2025
+                },
+                "name": "Optimize Game Engine",
+                "priority": 2,
+                "startTime": {
+                    "day": 0,
+                    "hour": 0,
+                    "minute": 0,
+                    "month": 0,
+                    "second": 0,
+                    "year": 0
+                }
+            }
+        ],
+        "username": "ako_ismahilov"
+    },
+    {
+        "password": "",
+        "tasks": [],
+        "username": "huseynn"
+    }
 ]

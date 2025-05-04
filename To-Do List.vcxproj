@@ -131,6 +131,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="class.h" />
+    <ClInclude Include="constants.h" />
+    <ClInclude Include="datetime.h" />
+    <ClInclude Include="jsonHandler.h" />
+    <ClInclude Include="task.h" />
+    <ClInclude Include="user.h" />
+    <ClInclude Include="userManagerr.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="database.json" />
